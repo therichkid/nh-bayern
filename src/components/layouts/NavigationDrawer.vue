@@ -2,12 +2,13 @@
   <v-navigation-drawer v-model="drawer" clipped app overflow width="300">
     <template v-if="$vuetify.breakpoint.mdAndDown">
       <v-list-item>
-        <v-list-item-avatar>
-          <v-img src="@/assets/logo_blue.png" alt="BayCIV-Logo"></v-img>
-        </v-list-item-avatar>
+        <!-- TODO -->
+        <!-- <v-list-item-avatar>
+          <v-img src="@/assets/logo_blue.png" alt="NH-Bayern-Logo"></v-img>
+        </v-list-item-avatar> -->
         <v-list-item-content>
           <v-list-item-title class="title">
-            BayCIV
+            NH-Bayern
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -64,58 +65,28 @@ export default {
         },
         {
           icon: "mdi-account-multiple",
-          title: "Selbsthilfegruppen",
-          to: "/shgs"
-        },
-        {
-          icon: "mdi-ear-hearing",
-          title: "Cochlea-Implantat",
-          to: [
-            {
-              title: "Erfahrungen",
-              to: "/erfahrungen"
-            },
-            {
-              title: "Was ist ein CI?",
-              to: "/was-ist-ein-ci"
-            },
-            {
-              title: "Kliniken, Rehas, Beratungsstellen",
-              to: "/einrichtungen"
-            },
-            {
-              title: "CI-Systeme",
-              to: "/ci-systeme"
-            }
-          ]
+          title: "Netzwerk",
+          to: "/netzwerk"
         },
         {
           icon: "mdi-information",
           title: "Über uns",
           to: [
             {
-              title: "Verband",
-              to: "/verband"
+              title: "Ziele",
+              to: "/ziele"
             },
             {
-              title: "Beratung",
-              to: "/beratung"
+              title: "Infomaterial",
+              to: "/infomaterial"
             },
             {
-              title: "Vorstand",
-              to: "/vorstand"
+              title: "Stellungnahmen",
+              to: "/stellungnahmen"
             },
             {
-              title: "Förderer",
-              to: "/foerderer"
-            },
-            {
-              title: "Satzung",
-              to: "/satzung"
-            },
-            {
-              title: "Infos & Dokumente",
-              to: "/infos-dokumente"
+              title: "Tätigkeitsberichte",
+              to: "/taetigkeitsberichte"
             }
           ]
         },
@@ -123,11 +94,6 @@ export default {
           icon: "mdi-clipboard-account",
           title: "Kontakt",
           to: "/kontakt"
-        },
-        {
-          icon: "mdi-account-plus",
-          title: "Mitglied werden",
-          to: "/mitglied-werden"
         }
       ]
     };

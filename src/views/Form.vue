@@ -317,7 +317,7 @@ export default {
       // Create token for reCAPTCHA
       const token = await this.$recaptcha("login");
       await api
-        .postData(data, token, "form", this.formId)
+        .postData(data, token, this.formId)
         .then(response => {
           this.alertType = "success";
           this.alertMessage = response;

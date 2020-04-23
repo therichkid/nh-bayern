@@ -9,18 +9,14 @@
           hover
           :to="`/news/${article.slug}`"
           class="d-flex flex-column"
-          :style="{ width: '100%' }"
+          :style="{ width: '100%', 'border-top': `6px solid ${article.color}` }"
         >
-          <v-img
-            :src="article.featuredImage.source"
-            maxHeight="300px"
-            :alt="article.featuredImage.title"
-          >
-            <v-row v-if="article.categories.length">
-              <v-col class="ml-3">
+          <v-card-title style="padding-top: 10px;">
+            <v-row no-gutters v-if="article.categories">
+              <v-col cols="12">
                 <v-chip-group column>
                   <v-chip
-                    color="primary"
+                    :color="article.color"
                     text-color="white"
                     v-for="category in article.categories"
                     :key="category.name"
@@ -29,17 +25,15 @@
                   </v-chip>
                 </v-chip-group>
               </v-col>
+              <h3 class="headline">{{ article.title }}</h3>
             </v-row>
-          </v-img>
-          <v-card-title>
-            <h3 class="headline">{{ article.title }}</h3>
           </v-card-title>
           <v-card-subtitle>
             <v-row align="center">
               <v-col>
-                <v-icon color="primary" class="pr-1">mdi-calendar</v-icon>
+                <v-icon :color="article.color" class="pr-1">mdi-calendar</v-icon>
                 <span class="mr-2">{{ article.date }}</span>
-                <v-icon color="primary" class="pr-1">mdi-account</v-icon>
+                <v-icon :color="article.color" class="pr-1">mdi-account</v-icon>
                 <span>{{ article.author }}</span>
               </v-col>
             </v-row>

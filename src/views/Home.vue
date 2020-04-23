@@ -12,7 +12,6 @@
       >
     </div>
     <Events />
-    <Events type="mainEvents" />
   </div>
 </template>
 

@@ -1,51 +1,22 @@
 <template>
   <v-footer dark :class="$vuetify.theme.dark ? 'dark-gradient' : 'light-gradient'">
-    <v-row align="center">
-      <!-- Left -->
-      <v-col cols="12" sm="6">
+    <v-row align="center" justify="center">
+      <v-col cols="auto">
         <!-- Contact -->
-        <v-card-title :class="$vuetify.breakpoint.xsOnly && 'justify-center'">Kontakt</v-card-title>
+        <v-card-title class="justify-center">Kontakt</v-card-title>
         <v-card-text>
-          <div class="align-center mb-2" v-for="(item, i) in contact" :key="i">
+          <div class="mb-2" v-for="(item, i) in contact" :key="i">
             <v-icon color="secondary" class="icon">{{ item.icon }}</v-icon>
             <span class="body-2 text link" v-html="item.text"></span>
           </div>
+          <div>
+            <v-icon color="secondary" class="icon">mdi-pencil</v-icon>
+            <span class="body-2 text link">
+              <router-link to="/kontakt">Zum Kontaktformular</router-link>
+            </span>
+          </div>
+          <!-- mdi-pencil -->
         </v-card-text>
-      </v-col>
-      <!-- Right -->
-      <v-col cols="12" sm="6">
-        <!-- Newsletter -->
-        <v-card-title :class="$vuetify.breakpoint.xsOnly && 'justify-center'"
-          >Newsletter abonnieren</v-card-title
-        >
-        <v-form v-model="valid">
-          <v-card-text>
-            <v-text-field
-              solo-inverted
-              label="E-Mail"
-              v-model="email"
-              :rules="emailRules"
-              required
-            ></v-text-field>
-            <v-btn class="secondary" :disabled="!valid || !email" @click="sendForm"
-              >Abonnieren</v-btn
-            >
-            <div class="caption link mt-2">
-              Diese Website ist durch reCAPTCHA geschützt und es gelten die
-              <a
-                href="https://policies.google.com/privacy"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Datenschutzbestimmungen</a
-              >
-              und
-              <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer"
-                >Nutzungsbedingungen</a
-              >
-              von Google.
-            </div>
-          </v-card-text>
-        </v-form>
       </v-col>
       <v-col cols="12">
         <v-divider></v-divider>
@@ -58,48 +29,26 @@
       </v-col>
       <v-col cols="12" sm="6" class="text-center text-sm-right">
         &copy; {{ new Date().getFullYear() }} &minus;
-        <strong>Bayerischer Cochlea Implantat Verband e.V.</strong>
+        <strong>Netzwerk Hörbehinderung Bayern</strong>
       </v-col>
     </v-row>
-
-    <AlertModal
-      :dialog="dialog"
-      :alertType="alertType"
-      :alertMessage="alertMessage"
-      page="newsletter"
-      @dialog="dialog = false"
-    />
   </v-footer>
 </template>
 
 <script>
-import api from "@/services/api";
-const AlertModal = () =>
-  import(/* webpackChunkName: "dialog" */ "@/components/partials/AlertModal");
-
 export default {
-  components: {
-    AlertModal
-  },
-
   data() {
     return {
-      valid: false,
-      email: "",
-      emailRules: [v => /\S+@\S+\.\S+/.test(v) || !v || "Diese E-Mail ist ungültig!"],
-      dialog: false,
-      alertMessage: "",
-      alertType: "",
       contact: [
         {
           icon: "mdi-map-marker",
-          text: `Bayerischer Cochlea Implantat Verband e.V.
+          text: `Netzwerk Hörbehinderung Bayern
           <br>Arberweg 28
           <br>85748 Garching`
         },
         {
           icon: "mdi-phone",
-          text: "<a href='tel:+498932928926'>+49 (0) 89 329 28 926</a>"
+          text: "<a href='tel:+4988414895518'>+49 (0) 8841 489 5518</a>"
         },
         {
           icon: "mdi-fax",
@@ -107,12 +56,7 @@ export default {
         },
         {
           icon: "mdi-email",
-          text: "info(at)bayciv.de"
-        },
-        {
-          icon: "mdi-facebook",
-          text:
-            "<a href='https://www.facebook.com/bayciv' target='_blank' rel='noopener noreferrer'>Facebook</a>"
+          text: "info(at)nh-bayern.de"
         }
       ],
       menu: [
@@ -126,41 +70,20 @@ export default {
         }
       ]
     };
-  },
-
-  methods: {
-    async sendForm() {
-      const data = {
-        email: this.email.trim()
-      };
-      // Create token for reCAPTCHA
-      const token = await this.$recaptcha("login");
-      await api
-        .postData(data, token, "newsletter")
-        .then(response => {
-          this.alertType = "success";
-          this.alertMessage = response;
-          this.email = "";
-        })
-        .catch(error => {
-          this.alertType = "error";
-          this.alertMessage = error;
-        });
-      this.dialog = true;
-    }
   }
 };
 </script>
 
 <style scoped>
 .light-gradient {
-  background: linear-gradient(var(--v-primary-lighten2), var(--v-primary-base));
+  background: linear-gradient(var(--v-primary-lighten1), var(--v-primary-base));
 }
 .dark-gradient {
-  background: linear-gradient(var(--v-primary-darken2), var(--v-primary-base));
+  background: linear-gradient(var(--v-primary-darken1), var(--v-primary-base));
 }
 .icon {
   float: left;
+  margin-top: -3px;
 }
 .text {
   display: block;

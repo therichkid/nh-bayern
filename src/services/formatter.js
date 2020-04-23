@@ -18,6 +18,7 @@ export default {
         categories: addCategories(orig, false),
         featuredImage: addFeaturedImage(orig)
       };
+      article.color = addColor(article.categories);
       posts.push(article);
     }
     return posts;
@@ -44,8 +45,7 @@ export default {
         featured: !!orig.acf.hauptevent,
         registration: !!orig.acf.anmeldung,
         address: addAddress(orig),
-        groups: addCategories(orig, true),
-        featuredImage: orig.acf.hauptevent ? addFeaturedImage(orig) : null
+        groups: addCategories(orig, true)
       };
       // Format the date
       [event.dateFormatted, event.dayFormatted, event.monthFormatted] = formatDate(
@@ -257,9 +257,11 @@ const addFeaturedImage = input => {
     input._embedded &&
     input._embedded["wp:featuredmedia"] &&
     input._embedded["wp:featuredmedia"][0] &&
-    input._embedded["wp:featuredmedia"][0].code !== "rest_forbidden"
+    input._embedded["wp:featuredmedia"][0].code !== "rest_forbidden" &&
+    input._embedded["wp:featuredmedia"][0].code !== "rest_post_invalid_id"
   ) {
     const featuredImage = input._embedded["wp:featuredmedia"][0];
+    console.log("FEATURED", featuredImage);
     obj.title = featuredImage.title.rendered;
     // Pick medium large size if it exists
     if (featuredImage.media_details.sizes && featuredImage.media_details.sizes.medium_large) {
@@ -267,11 +269,6 @@ const addFeaturedImage = input => {
     } else {
       obj.source = featuredImage.source_url;
     }
-  } else {
-    // Set a placeholder
-    // https://via.placeholder.com/600x400/f07f00/3b2e88?text=BayCIV+e.V.
-    obj.title = "Placeholder Image";
-    obj.source = require("../assets/placeholder.png");
   }
   return obj;
 };
@@ -297,6 +294,20 @@ const addCategories = (input, onlyGroups) => {
     }
   }
   return categories;
+};
+
+// Add color based on the category
+const addColor = categories => {
+  const colorMap = {
+    LS: "#4dd0e1",
+    DGS: "#512da8"
+  };
+  for (const category of categories) {
+    if (colorMap[category.name]) {
+      return colorMap[category.name];
+    }
+  }
+  return "#607d8b";
 };
 
 const decodeHtml = str => {

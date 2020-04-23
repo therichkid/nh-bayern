@@ -79,7 +79,7 @@ export default {
           color: "#4ac959"
         }
       ],
-      linkPrefix: "https://www.bayciv.de",
+      linkPrefix: "https://www.nh-bayern.de",
       snackbar: false
     };
   },

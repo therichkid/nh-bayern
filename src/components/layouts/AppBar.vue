@@ -1,31 +1,25 @@
 <template>
-  <v-app-bar
-    clipped-left
-    app
-    dark
-    color="primary"
-    src="@/assets/banner.svg"
-    v-bind="responsiveProps"
-  >
+  <v-app-bar clipped-left app dark color="primary" v-bind="responsiveProps">
     <v-app-bar-nav-icon
       @click.stop="onMenuToggleClick()"
       class="hidden-lg-and-up"
       aria-label="Menü"
     ></v-app-bar-nav-icon>
 
-    <router-link to="/">
+    <!-- TODO: add icon -->
+    <!-- <router-link to="/">
       <v-img
         class="mx-2 mt-1"
         src="@/assets/logo_white.png"
         max-height="40"
         max-width="40"
-        alt="BayCIV-Logo"
+        alt="NH-Bayern-Logo"
       ></v-img>
-    </router-link>
+    </router-link> -->
 
     <v-slide-x-reverse-transition>
       <v-toolbar-title class="ml-2" v-show="showTitle && !showLongTitle">
-        BayCIV
+        NH-Bayern
       </v-toolbar-title>
     </v-slide-x-reverse-transition>
 
@@ -35,10 +29,10 @@
     <v-slide-x-transition>
       <v-toolbar-title
         v-show="showTitle && showLongTitle"
-        class="mr-5 px-3 py-0 align-self-center display-2"
+        class="mr-5 px-3 py-0 align-self-center title"
         style="border-left: 2px solid white; max-height: 100%;"
       >
-        Bayerischer Cochlea<br />Implantat Verband e.V.
+        Netzwerk<br />Hörbehinderung<br />Bayern
       </v-toolbar-title>
     </v-slide-x-transition>
 
@@ -172,7 +166,7 @@ export default {
         this.showLongTitle = false;
       } else {
         this.showTitle = true;
-        const titleWidthThreshold = this.showLongTitle ? 100 : 650;
+        const titleWidthThreshold = this.showLongTitle ? 50 : 250;
         if (
           this.$refs.spacer.clientHeight > 100 &&
           this.$refs.spacer.clientWidth > titleWidthThreshold

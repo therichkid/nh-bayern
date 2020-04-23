@@ -13,8 +13,6 @@ import PageNotFound from "../views/PageNotFound";
 // Chunks
 const Calendar = () => import(/* webpackChunkName: "calendar" */ "../views/Calendar");
 const Form = () => import(/* webpackChunkName: "form" */ "../views/Form");
-const SHGs = () => import(/* webpackChunkName: "map" */ "../views/SHGs");
-const Facilities = () => import(/* webpackChunkName: "map" */ "../views/Facilities");
 
 Vue.use(Router);
 
@@ -110,15 +108,6 @@ const routes = [
       type: "event"
     })
   },
-  { path: "/selbsthilfe", redirect: "/shgs" },
-  {
-    path: "/shgs",
-    name: "shgs",
-    component: SHGs,
-    meta: {
-      title: "Selbsthilfegruppen"
-    }
-  },
   // SHG redirects
   { path: "/shg-allgaeu", redirect: "/shgs/ci-shg-allgaeu" },
   {
@@ -143,17 +132,6 @@ const routes = [
       page: route.params.page
     }),
     alias: "/erfahrungen"
-  },
-  { path: "/kliniken", redirect: "/einrichtungen" },
-  { path: "/rehabilation", redirect: "/einrichtungen" },
-  { path: "/beratungsstellen", redirect: "/einrichtungen" },
-  {
-    path: "/einrichtungen",
-    name: "facilities",
-    component: Facilities,
-    meta: {
-      title: "Kliniken, Rehas, Beratungsstellen"
-    }
   },
   {
     path: "/404",
@@ -193,7 +171,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     title += `${to.meta.title} - `;
   }
-  title += "BayCIV";
+  title += "NH-Bayern";
   document.title = title;
   next();
 });

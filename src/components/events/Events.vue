@@ -2,15 +2,9 @@
   <v-container>
     <v-row align="center">
       <v-col cols="auto" class="mr-auto">
-        <h2 class="display-1 my-2" style="word-break: break-all;">
-          <template v-if="type === 'mainEvents'">
-            <span>Hauptveranstaltungen</span>
-            <v-chip color="primary" text-color="white" class="ml-2 mb-1">Bitte anmelden!</v-chip>
-          </template>
-          <span v-else>Veranstaltungen</span>
-        </h2>
+        <h2 class="display-1 my-2" style="word-break: break-all;">Veranstaltungen</h2>
       </v-col>
-      <v-col cols="auto" v-if="type !== 'mainEvents' && !groupName">
+      <v-col cols="auto" v-if="!groupName">
         <v-btn text to="/events">
           <span>Mehr</span>
           <v-icon>mdi-chevron-right</v-icon>
@@ -29,8 +23,7 @@
             <v-container mx-0 px-0 mt-0 pt-0>
               <v-row>
                 <v-col cols="4" lg="3" v-for="event in eventsInView" :key="event.id" class="d-flex">
-                  <MainEventCard :event="event" v-if="type === 'mainEvents'" />
-                  <EventCard :event="event" v-else />
+                  <EventCard :event="event" />
                 </v-col>
               </v-row>
             </v-container>
@@ -57,8 +50,7 @@
       <!-- Mobile devices -->
       <v-row no-gutters v-if="$vuetify.breakpoint.smAndDown" class="horizontal-scrolling-wrapper">
         <v-col v-for="event in events" :key="event.id" class="d-flex pa-2">
-          <MainEventCard :event="event" v-if="type === 'mainEvents'" />
-          <EventCard :event="event" v-else />
+          <EventCard :event="event" />
         </v-col>
       </v-row>
     </template>
@@ -70,7 +62,6 @@
 <script>
 import Loading from "@/components/partials/Loading";
 import EventCard from "@/components/events/EventCard";
-import MainEventCard from "@/components/events/MainEventCard";
 import NoContentYet from "@/components/partials/NoContentYet";
 const LoadingError = () =>
   import(/* webpackChunkName: "dialog" */ "@/components/partials/LoadingError");
@@ -80,12 +71,10 @@ export default {
     Loading,
     LoadingError,
     EventCard,
-    MainEventCard,
     NoContentYet
   },
 
   props: {
-    type: String,
     groupName: String
   },
 
@@ -101,14 +90,10 @@ export default {
 
   computed: {
     isLoading() {
-      return this.type === "mainEvents"
-        ? this.$store.state.mainEventsLoading
-        : this.$store.state.eventsLoading;
+      return this.$store.state.eventsLoading;
     },
     loadingError() {
-      return this.type === "mainEvents"
-        ? this.$store.state.mainEventsLoadingError
-        : this.$store.state.eventsLoadingError;
+      return this.$store.state.eventsLoadingError;
     },
     fontSize() {
       return this.$store.state.fontSize;
@@ -152,25 +137,6 @@ export default {
       }
       return events;
     },
-    async getMainEvents() {
-      let events = [];
-      const today = this.shared.getCurrentDate();
-      const [year, month] = this.shared.splitDate(today, false);
-      const eventsFetched = this.$store.getters.getFetchedMainEvents();
-      if (eventsFetched[0]) {
-        // Already fetched
-        events = eventsFetched[1];
-      } else {
-        // Not fetched yet
-        events = await this.$store
-          .dispatch("fetchEvents", {
-            startDate: `${year}${month < 10 ? "0" : ""}${month}01`,
-            onlyMainEvents: true
-          })
-          .catch(error => console.error(error));
-      }
-      return events;
-    },
     async getEventsPerGroup(groupName) {
       let events = [];
       const today = this.shared.getCurrentDate();
@@ -192,9 +158,7 @@ export default {
     },
     async initiateEvents() {
       let events;
-      if (this.type === "mainEvents") {
-        events = await this.getMainEvents();
-      } else if (this.groupName) {
+      if (this.groupName) {
         events = await this.getEventsPerGroup(this.groupName);
       } else {
         events = await this.getEvents();
