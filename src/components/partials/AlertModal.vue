@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="700" persistent>
     <v-card>
-      <v-card-title class="headline white--text" :class="alertType">
+      <v-card-title class="white--text" :class="alertType">
         <span class="headline">{{ alertType === "success" ? "Erfolg" : "Fehler" }}</span>
         <v-spacer></v-spacer>
         <v-tooltip bottom>

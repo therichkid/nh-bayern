@@ -52,8 +52,8 @@
         </v-row>
 
         <!-- Settings -->
-        <v-row dense align="center">
-          <v-col cols="12" sm="6">
+        <v-row dense>
+          <v-col cols="12">
             <v-autocomplete
               v-model="selectedGroups"
               :items="groups"
@@ -61,16 +61,9 @@
               item-value="category.name"
               multiple
               clearable
-              label="Selbsthilfegruppen"
+              label="Verbände"
               hide-details
             ></v-autocomplete>
-          </v-col>
-          <v-col cols="12" sm="6">
-            <v-checkbox
-              v-model="onlyMainEvents"
-              label="Nur Hauptveranstaltungen"
-              hide-details
-            ></v-checkbox>
           </v-col>
         </v-row>
       </v-card-text>
@@ -199,7 +192,6 @@ export default {
       },
       selectedGroups: [],
       groups: [],
-      onlyMainEvents: false,
       weekdays: [1, 2, 3, 4, 5, 6, 0],
       events: [],
       isLoading: false,
@@ -254,9 +246,6 @@ export default {
     filteredEvents() {
       const filteredEvents = [];
       for (const event of this.events) {
-        if (this.onlyMainEvents && !event.featured) {
-          continue;
-        }
         if (this.selectedGroups.length) {
           let hasMatchedGroup = false;
           for (const group of event.groups) {

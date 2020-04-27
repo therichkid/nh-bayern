@@ -3,7 +3,15 @@
     <v-container>
       <InfoMessage />
 
-      <h1 class="display-1 mb-2">Neuigkeiten</h1>
+      <v-row align="center">
+        <v-col cols="auto" class="mr-auto">
+          <h1 class="display-1 mb-2" style="word-break: break-all;">Neuigkeiten</h1>
+        </v-col>
+        <v-col cols="auto">
+          <CategoryInfo />
+        </v-col>
+      </v-row>
+
       <Posts :page="1" />
     </v-container>
     <div class="text-center">
@@ -18,13 +26,15 @@
 <script>
 import Posts from "@/components/posts/Posts";
 import InfoMessage from "@/components/partials/InfoMessage";
+import CategoryInfo from "@/components/partials/CategoryInfo";
 const Events = () => import(/* webpackChunkName: "events" */ "@/components/events/Events");
 
 export default {
   components: {
     Posts,
     Events,
-    InfoMessage
+    InfoMessage,
+    CategoryInfo
   },
 
   computed: {

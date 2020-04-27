@@ -6,8 +6,7 @@
       aria-label="Menü"
     ></v-app-bar-nav-icon>
 
-    <!-- TODO: add icon -->
-    <!-- <router-link to="/">
+    <router-link to="/">
       <v-img
         class="mx-2 mt-1"
         src="@/assets/logo_white.png"
@@ -15,7 +14,7 @@
         max-width="40"
         alt="NH Bayern-Logo"
       ></v-img>
-    </router-link> -->
+    </router-link>
 
     <v-toolbar-title v-if="showTitle" class="ml-2 headline">
       <span v-if="showLongTitle">Netzwerk Hörbehinderung Bayern</span>

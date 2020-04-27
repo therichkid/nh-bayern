@@ -2,10 +2,9 @@
   <v-navigation-drawer v-model="drawer" clipped app overflow width="300">
     <template v-if="$vuetify.breakpoint.mdAndDown">
       <v-list-item>
-        <!-- TODO -->
-        <!-- <v-list-item-avatar>
-          <v-img src="@/assets/logo_blue.png" alt="NH Bayern-Logo"></v-img>
-        </v-list-item-avatar> -->
+        <v-list-item-avatar tile>
+          <v-img src="@/assets/logo.png" contain alt="NH Bayern-Logo"></v-img>
+        </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title class="title">
             NH Bayern

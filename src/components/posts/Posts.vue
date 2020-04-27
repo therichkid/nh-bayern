@@ -17,7 +17,8 @@
             <v-col cols="auto">
               <v-avatar class="ma-2" size="200" style="border-radius: 4px;">
                 <v-img
-                  src="https://blueprint-api-production.s3.amazonaws.com/uploads/story/thumbnail/77066/a1b17dd6-1461-4e90-a138-d5e9952eec6e.png"
+                  :src="article.featuredImage.source"
+                  :alt="article.featuredImage.title"
                 ></v-img>
               </v-avatar>
             </v-col>

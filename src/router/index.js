@@ -142,12 +142,7 @@ const routes = [
     }
   },
   // Page redirects
-  { path: "/cochlea", redirect: "/was-ist-ein-ci" },
-  { path: "/implantate", redirect: "/ci-systeme" },
-  { path: "/ziele", redirect: "/verband" },
-  { path: "/taetigkeitsberichte", redirect: "/infos-dokumente" },
-  { path: "/infomaterial", redirect: "/infos-dokumente" },
-  { path: "/mitglied_werden", redirect: "/mitglied-werden" },
+  // TODO
   {
     path: "/:slug",
     name: "page",

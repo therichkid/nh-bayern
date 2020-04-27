@@ -18,7 +18,11 @@ export default {
         categories: addCategories(orig, false),
         featuredImage: addFeaturedImage(orig)
       };
-      article.color = addColor(article.categories);
+      const { color, image } = addCategoryProps(article.categories, true);
+      article.color = color;
+      if (!article.featuredImage.source) {
+        article.featuredImage = image;
+      }
       posts.push(article);
     }
     return posts;
@@ -70,7 +74,8 @@ export default {
         formId: parseInt(orig.acf.formular_id, 10),
         formData: orig.acf.formular_code
       });
-      event.color = addColor(event.groups);
+      const { color } = addCategoryProps(event.groups, false);
+      event.color = color;
       events.push(event);
     }
     // Sort events by date
@@ -296,7 +301,7 @@ const addCategories = (input, onlyGroups) => {
 };
 
 const isGroupTaxonomy = taxonomy => {
-  const paths = ["dgs", "ls", "neutral"];
+  const paths = ["dgs", "ls"];
   for (const path of paths) {
     if (taxonomy.link.includes(path)) {
       return true;
@@ -305,18 +310,55 @@ const isGroupTaxonomy = taxonomy => {
   return false;
 };
 
-// Add color based on the category
-// TODO: add color based on taxonomy link
-const addColor = categories => {
+const addCategoryProps = (categories, addImage) => {
+  let color;
   const colorMap = {
-    LS: "#4dd0e1",
-    DGS: "#512da8"
+    DGS: "#512da8",
+    LS: "#4dd0e1"
+  };
+  let image;
+  const imageMap = {
+    default: {
+      title: "Frau neigt ihren Kopf nach rechts",
+      source: require("../assets/placeholder/default.jpg")
+    },
+    DGS: {
+      title: "Zwei Hände mit Gebärdezeichen",
+      source: require("../assets/placeholder/dgs.jpg")
+    },
+    LS: {
+      title: "Kind singt in ein Mikrofon",
+      source: require("../assets/placeholder/ls.jpg")
+    },
+    News: {
+      title: "Zeitungen",
+      source: require("../assets/placeholder/news.jpg")
+    },
+    Presse: {
+      title: "Buchstaben zum Bedrucken einer Zeitung",
+      source: require("../assets/placeholder/presse.jpg")
+    },
+    "Woche der Kommunikation": {
+      title: "Orangenes Mikrofon an einer orangenen Wand",
+      source: require("../assets/placeholder/woche_der_kommunikation.jpg")
+    },
+    "Woche der Senior*innen": {
+      title: "Zwei Hände umgreifen einen Gehstock",
+      source: require("../assets/placeholder/woche_der_seniorinnen.jpg")
+    }
   };
   for (const category of categories) {
     if (colorMap[category.name]) {
-      return colorMap[category.name];
+      color = colorMap[category.name];
+    }
+    if (addImage && imageMap[category.name]) {
+      image = imageMap[category.name];
     }
   }
+  if (!image) {
+    image = imageMap.default;
+  }
+  return { color, image };
 };
 
 const decodeHtml = str => {
