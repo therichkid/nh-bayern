@@ -1,15 +1,12 @@
 <template>
   <v-card>
     <!-- Header -->
-    <v-card-title class="primary white--text">
-      <div v-if="event.featured">
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on }">
-            <v-icon color="secondary" class="mr-1" v-on="on">mdi-star</v-icon>
-          </template>
-          <span>Hauptevent</span>
-        </v-tooltip>
-      </div>
+    <v-card-title
+      class="white--text"
+      :style="{
+        'background-color': `${event.color || 'var(--v-primary-base)'}`
+      }"
+    >
       <span class="headline pr-2">{{ event.dayFormatted }}.</span>
       <span class="caption pt-2 text-truncate" style="flex: 10 0;">{{ event.monthFormatted }}</span>
       <template v-if="type === 'popup'">
@@ -39,28 +36,31 @@
 
     <!-- Body -->
     <v-card-text>
-      <v-chip v-if="event.registration" color="primary" text-color="white" class="mb-2">
+      <v-chip
+        v-if="event.registration"
+        :color="event.color || 'primary'"
+        text-color="white"
+        class="mb-2"
+      >
         Bitte anmelden!
       </v-chip>
       <v-row align="center" dense>
         <!-- Groups -->
         <v-col cols="12" v-if="event.groups.length">
-          <v-icon color="primary" class="pr-1">mdi-account-multiple</v-icon>
+          <v-icon :color="event.color || 'primary'" class="pr-1">mdi-account-multiple</v-icon>
           <span v-for="(group, i) in event.groups" :key="i">
             <span v-if="i !== 0">, </span>
-            <router-link :to="'/shgs/' + group.slug">
-              {{ group.name }}
-            </router-link>
+            <router-link :to="'/shgs/' + group.slug">{{ group.name }}</router-link>
           </span>
         </v-col>
         <!-- Address -->
         <v-col cols="12">
-          <v-icon color="primary" class="pr-1">mdi-map-marker</v-icon>
+          <v-icon :color="event.color || 'primary'" class="pr-1">mdi-map-marker</v-icon>
           <span class="mr-2">{{ event.address }}</span>
         </v-col>
         <!-- Time -->
         <v-col cols="12">
-          <v-icon color="primary" class="pr-1">mdi-clock</v-icon>
+          <v-icon :color="event.color || 'primary'" class="pr-1">mdi-clock</v-icon>
           <span class="mr-2">
             {{ event.startTime }}
             <span v-if="event.endTime">bis {{ event.endTime }}</span>

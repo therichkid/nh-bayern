@@ -4,48 +4,59 @@
     <LoadingError v-if="loadingError" :height="500" @retryAgain="getPosts(page, groupName)" />
 
     <v-row v-if="!isLoading && !loadingError && posts.length">
-      <v-col class="d-flex" v-for="article in posts" :key="article.id" cols="12" sm="6">
+      <v-col v-for="article in posts" :key="article.id" cols="12">
         <v-card
           hover
           :to="`/news/${article.slug}`"
-          class="d-flex flex-column"
-          :style="{ width: '100%', 'border-top': `6px solid ${article.color}` }"
+          :style="{
+            'border-top': `6px solid ${article.color || 'var(--v-primary-base)'}`
+          }"
         >
-          <v-card-title style="padding-top: 10px;">
-            <v-row no-gutters v-if="article.categories">
-              <v-col cols="12">
-                <v-chip-group column>
-                  <v-chip
-                    :color="article.color"
-                    text-color="white"
-                    v-for="category in article.categories"
-                    :key="category.name"
-                  >
-                    {{ category.name }}
-                  </v-chip>
-                </v-chip-group>
-              </v-col>
-              <h3 class="headline">{{ article.title }}</h3>
-            </v-row>
-          </v-card-title>
-          <v-card-subtitle>
-            <v-row align="center">
-              <v-col>
-                <v-icon :color="article.color" class="pr-1">mdi-calendar</v-icon>
-                <span class="mr-2">{{ article.date }}</span>
-                <v-icon :color="article.color" class="pr-1">mdi-account</v-icon>
-                <span>{{ article.author }}</span>
-              </v-col>
-            </v-row>
-          </v-card-subtitle>
-          <v-card-text>
-            <div v-html="article.excerpt"></div>
-          </v-card-text>
-          <v-spacer></v-spacer>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-icon>mdi-chevron-right</v-icon>
-          </v-card-actions>
+          <v-row no-gutters>
+            <!-- Image -->
+            <v-col cols="auto">
+              <v-avatar class="ma-2" size="200" style="border-radius: 4px;">
+                <v-img
+                  src="https://blueprint-api-production.s3.amazonaws.com/uploads/story/thumbnail/77066/a1b17dd6-1461-4e90-a138-d5e9952eec6e.png"
+                ></v-img>
+              </v-avatar>
+            </v-col>
+
+            <!-- Text -->
+            <v-col class="d-flex flex-column">
+              <v-chip-group column class="px-3">
+                <v-chip
+                  :color="article.color || 'primary'"
+                  text-color="white"
+                  v-for="category in article.categories"
+                  :key="category.name"
+                >
+                  {{ category.name }}
+                </v-chip>
+              </v-chip-group>
+              <v-card-title class="pt-0">
+                <h3 class="headline">{{ article.title }}</h3>
+              </v-card-title>
+              <v-card-subtitle>
+                <v-row align="center">
+                  <v-col cols="12">
+                    <v-icon :color="article.color || 'primary'" class="pr-1">mdi-calendar</v-icon>
+                    <span class="mr-2">{{ article.date }}</span>
+                    <v-icon :color="article.color || 'primary'" class="pr-1">mdi-account</v-icon>
+                    <span>{{ article.author }}</span>
+                  </v-col>
+                </v-row>
+              </v-card-subtitle>
+              <v-card-text>
+                <div v-html="article.excerpt"></div>
+              </v-card-text>
+              <v-spacer></v-spacer>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-icon>mdi-chevron-right</v-icon>
+              </v-card-actions>
+            </v-col>
+          </v-row>
         </v-card>
       </v-col>
     </v-row>

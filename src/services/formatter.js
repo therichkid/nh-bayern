@@ -42,7 +42,6 @@ export default {
           orig.acf.event_datum !== orig.acf.event_datum_ende ? orig.acf.event_datum_ende : null,
         startTime: orig.acf.zeit_von,
         endTime: orig.acf.zeit_bis,
-        featured: !!orig.acf.hauptevent,
         registration: !!orig.acf.anmeldung,
         address: addAddress(orig),
         groups: addCategories(orig, true)
@@ -71,6 +70,7 @@ export default {
         formId: parseInt(orig.acf.formular_id, 10),
         formData: orig.acf.formular_code
       });
+      event.color = addColor(event.groups);
       events.push(event);
     }
     // Sort events by date
@@ -261,7 +261,6 @@ const addFeaturedImage = input => {
     input._embedded["wp:featuredmedia"][0].code !== "rest_post_invalid_id"
   ) {
     const featuredImage = input._embedded["wp:featuredmedia"][0];
-    console.log("FEATURED", featuredImage);
     obj.title = featuredImage.title.rendered;
     // Pick medium large size if it exists
     if (featuredImage.media_details.sizes && featuredImage.media_details.sizes.medium_large) {
@@ -281,13 +280,13 @@ const addCategories = (input, onlyGroups) => {
     for (const taxonomy of taxonomies) {
       if (
         taxonomy.taxonomy === "category" &&
-        !["uncategorized", "selbsthilfegruppen"].includes(taxonomy.slug)
+        !["uncategorized", "neutral"].includes(taxonomy.slug)
       ) {
-        if ((onlyGroups && taxonomy.link.includes("selbsthilfegruppen")) || !onlyGroups) {
+        if ((onlyGroups && isGroupTaxonomy(taxonomy)) || !onlyGroups) {
           categories.push({
             name: taxonomy.name,
             slug: taxonomy.slug,
-            type: taxonomy.link.includes("selbsthilfegruppen") ? "shg" : ""
+            type: isGroupTaxonomy(taxonomy) ? "shg" : ""
           });
         }
       }
@@ -296,7 +295,18 @@ const addCategories = (input, onlyGroups) => {
   return categories;
 };
 
+const isGroupTaxonomy = taxonomy => {
+  const paths = ["dgs", "ls", "neutral"];
+  for (const path of paths) {
+    if (taxonomy.link.includes(path)) {
+      return true;
+    }
+  }
+  return false;
+};
+
 // Add color based on the category
+// TODO: add color based on taxonomy link
 const addColor = categories => {
   const colorMap = {
     LS: "#4dd0e1",
@@ -307,7 +317,6 @@ const addColor = categories => {
       return colorMap[category.name];
     }
   }
-  return "#607d8b";
 };
 
 const decodeHtml = str => {

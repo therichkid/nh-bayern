@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar clipped-left app dark color="primary" v-bind="responsiveProps">
+  <v-app-bar clipped-left app dark color="primary">
     <v-app-bar-nav-icon
       @click.stop="onMenuToggleClick()"
       class="hidden-lg-and-up"
@@ -13,28 +13,17 @@
         src="@/assets/logo_white.png"
         max-height="40"
         max-width="40"
-        alt="NH-Bayern-Logo"
+        alt="NH Bayern-Logo"
       ></v-img>
     </router-link> -->
 
-    <v-slide-x-reverse-transition>
-      <v-toolbar-title class="ml-2" v-show="showTitle && !showLongTitle">
-        NH-Bayern
-      </v-toolbar-title>
-    </v-slide-x-reverse-transition>
+    <v-toolbar-title v-if="showTitle" class="ml-2 headline">
+      <span v-if="showLongTitle">Netzwerk Hörbehinderung Bayern</span>
+      <span v-else>NH Bayern</span>
+    </v-toolbar-title>
 
-    <!-- Has ref and height prop to measure the title dimensions -->
-    <v-spacer ref="spacer" style="height: 100%;"></v-spacer>
-
-    <v-slide-x-transition>
-      <v-toolbar-title
-        v-show="showTitle && showLongTitle"
-        class="mr-5 px-3 py-0 align-self-center title"
-        style="border-left: 2px solid white; max-height: 100%;"
-      >
-        Netzwerk<br />Hörbehinderung<br />Bayern
-      </v-toolbar-title>
-    </v-slide-x-transition>
+    <!-- Has ref and to measure the title dimensions -->
+    <v-spacer ref="spacer"></v-spacer>
 
     <SearchBar />
 
@@ -125,16 +114,6 @@ export default {
         color = "#ffc107";
       }
       return { icon, color };
-    },
-    responsiveProps() {
-      if (this.$vuetify.breakpoint.smAndDown) {
-        return {};
-      } else {
-        return {
-          prominent: true,
-          shrinkOnScroll: true
-        };
-      }
     }
   },
 
@@ -166,11 +145,8 @@ export default {
         this.showLongTitle = false;
       } else {
         this.showTitle = true;
-        const titleWidthThreshold = this.showLongTitle ? 50 : 250;
-        if (
-          this.$refs.spacer.clientHeight > 100 &&
-          this.$refs.spacer.clientWidth > titleWidthThreshold
-        ) {
+        const titleWidthThreshold = this.showLongTitle ? 50 : 400;
+        if (this.$refs.spacer.clientWidth > titleWidthThreshold) {
           this.showLongTitle = true;
         } else {
           this.showLongTitle = false;

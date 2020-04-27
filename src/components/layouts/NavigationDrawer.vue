@@ -4,11 +4,11 @@
       <v-list-item>
         <!-- TODO -->
         <!-- <v-list-item-avatar>
-          <v-img src="@/assets/logo_blue.png" alt="NH-Bayern-Logo"></v-img>
+          <v-img src="@/assets/logo_blue.png" alt="NH Bayern-Logo"></v-img>
         </v-list-item-avatar> -->
         <v-list-item-content>
           <v-list-item-title class="title">
-            NH-Bayern
+            NH Bayern
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>

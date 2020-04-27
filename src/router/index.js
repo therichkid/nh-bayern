@@ -171,7 +171,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta.title) {
     title += `${to.meta.title} - `;
   }
-  title += "NH-Bayern";
+  title += "NH Bayern";
   document.title = title;
   next();
 });

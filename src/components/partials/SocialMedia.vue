@@ -1,5 +1,5 @@
 <template>
-  <div class="text-right">
+  <div class="text-right" style="min-height: 48px;">
     <span v-for="network in networks" :key="network.component">
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
