@@ -299,7 +299,8 @@ const addCategories = (input, onlyGroups) => {
             type:
               isGroupTaxonomy(taxonomy) && !["neutral", "dgs", "ls"].includes(taxonomy.slug)
                 ? "group"
-                : ""
+                : "",
+            link: taxonomy.link
           });
         }
       }
@@ -309,7 +310,7 @@ const addCategories = (input, onlyGroups) => {
 };
 
 const isGroupTaxonomy = taxonomy => {
-  const paths = ["neutral", "dgs", "ls"];
+  const paths = ["/neutral/", "/dgs/", "/ls/"];
   for (const path of paths) {
     if (taxonomy.link.includes(path)) {
       return true;
