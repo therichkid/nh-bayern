@@ -15,11 +15,11 @@ export default {
   storePosts(state, { posts, page }) {
     state.posts[page] = posts;
   },
-  storePostsPerGroup(state, { posts, page, groupName }) {
-    if (!state.postsPerGroup[groupName]) {
-      state.postsPerGroup[groupName] = {};
+  storePostsPerCategory(state, { posts, page, categoryName }) {
+    if (!state.postsPerCategory[categoryName]) {
+      state.postsPerCategory[categoryName] = {};
     }
-    state.postsPerGroup[groupName][page] = posts;
+    state.postsPerCategory[categoryName][page] = posts;
   },
   incrementFailedRequests(state, num) {
     if (!num) {
@@ -32,31 +32,20 @@ export default {
     state.totalPosts = parseInt(headers["x-wp-total"], 10);
     state.totalPostPages = parseInt(headers["x-wp-totalpages"], 10);
   },
-  setPostHeadersPerGroup(state, { headers, groupName }) {
-    state.totalPostPagesPerGroup[groupName] = parseInt(headers["x-wp-totalpages"], 10);
+  setPostHeadersPerCategory(state, { headers, categoryName }) {
+    state.totalPostPagesPerCategory[categoryName] = parseInt(headers["x-wp-totalpages"], 10);
   },
-  changeEventsLoading(state, { value, onlyMainEvents }) {
-    if (onlyMainEvents) {
-      state.mainEventsLoading = value;
-    } else {
-      state.eventsLoading = value;
-    }
+  changeEventsLoading(state, value) {
+    state.eventsLoading = value;
   },
-  changeEventsLoadingError(state, { value, onlyMainEvents }) {
-    if (onlyMainEvents) {
-      state.mainEventsLoadingError = value;
-    } else {
-      state.eventsLoadingError = value;
-    }
+  changeEventsLoadingError(state, value) {
+    state.eventsLoadingError = value;
   },
   storeEvents(state, { events, year, month }) {
     if (!state.events[year]) {
       state.events[year] = {};
     }
     state.events[year][month] = [...events];
-  },
-  storeMainEvents(state, events) {
-    state.mainEvents = [...events];
   },
   storeEventsPerGroup(state, { events, groupName }) {
     if (!state.eventsPerGroup[groupName]) {
@@ -82,22 +71,10 @@ export default {
   storeGroups(state, groups) {
     state.groups = groups;
   },
-  changeFacilitiesLoading(state, value) {
-    state.facilitiesLoading = value;
-  },
-  changeFacilitiesLoadingError(state, value) {
-    state.facilitiesLoadingError = value;
-  },
-  storeFacilities(state, facilities) {
-    state.facilities = facilities;
-  },
   changeCalendarType(state, view) {
     state.calendarView = view;
   },
   changeCalendarFocus(state, focus) {
     state.calendarFocus = focus;
-  },
-  changeRegion(state, region) {
-    state.region = region;
   }
 };

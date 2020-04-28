@@ -76,6 +76,7 @@ export default {
       });
       const { color } = addCategoryProps(event.groups, false);
       event.color = color;
+      event.groups = removeParentCategories(event.groups);
       events.push(event);
     }
     // Sort events by date
@@ -124,7 +125,7 @@ export default {
     return page;
   },
 
-  // * SHGs
+  // * Groups
   formatGroups: input => {
     const groups = [];
     for (const orig of input) {
@@ -133,19 +134,18 @@ export default {
         slug: orig.slug,
         name: decodeHtml(orig.title.rendered),
         content: orig.content ? orig.content.rendered : null,
-        address: addAddress(orig),
-        latlng: [orig.acf.adresse.lat, orig.acf.adresse.lng],
-        mailingAddress: addMailingAddress(orig),
-        email: orig.acf.email,
-        phone: orig.acf.telefon,
-        mobile: orig.acf.mobil,
-        fax: orig.acf.fax,
-        homepage: orig.acf.homepage,
-        region: orig.acf.region,
-        featuredImage: addFeaturedImage(orig),
-        type: orig.acf.typ,
-        category: addCategories(orig, true)[0]
+        address: addAddress(orig)
+        // mailingAddress: addMailingAddress(orig),
+        // email: orig.acf.email,
+        // phone: orig.acf.telefon,
+        // mobile: orig.acf.mobil,
+        // fax: orig.acf.fax,
+        // homepage: orig.acf.homepage,
+        // featuredImage: addFeaturedImage(orig),
+        // type: orig.acf.typ
       };
+      const categories = addCategories(orig, true);
+      group.category = removeParentCategories(categories)[0];
       groups.push(group);
     }
     return groups;
@@ -238,24 +238,24 @@ const addAddress = input => {
   return str;
 };
 
-// Add the address to an event or a Selbsthilfegruppe
-const addMailingAddress = input => {
-  if (!input.acf.postanschrift) {
-    return null;
-  }
-  let str = "";
-  if (input.acf.postanschriftsname) {
-    str += `${input.acf.postanschriftsname}, `;
-  }
-  if (input.acf.postanschrift.address.includes("Deutschland")) {
-    str += input.acf.postanschrift.address.split(",").slice(0, -1).join(",");
-  } else {
-    str += input.acf.postanschrift.address;
-  }
-  return str;
-};
+// // Add the address to an event or a Selbsthilfegruppe
+// const addMailingAddress = input => {
+//   if (!input.acf.postanschrift) {
+//     return null;
+//   }
+//   let str = "";
+//   if (input.acf.postanschriftsname) {
+//     str += `${input.acf.postanschriftsname}, `;
+//   }
+//   if (input.acf.postanschrift.address.includes("Deutschland")) {
+//     str += input.acf.postanschrift.address.split(",").slice(0, -1).join(",");
+//   } else {
+//     str += input.acf.postanschrift.address;
+//   }
+//   return str;
+// };
 
-// Add a featured image to an article or a SHG
+// Add a featured image to an article or a group
 const addFeaturedImage = input => {
   const obj = {};
   if (
@@ -291,7 +291,7 @@ const addCategories = (input, onlyGroups) => {
           categories.push({
             name: taxonomy.name,
             slug: taxonomy.slug,
-            type: isGroupTaxonomy(taxonomy) ? "shg" : ""
+            type: isGroupTaxonomy(taxonomy) ? "group" : ""
           });
         }
       }
@@ -359,6 +359,16 @@ const addCategoryProps = (categories, addImage) => {
     image = imageMap.default;
   }
   return { color, image };
+};
+
+const removeParentCategories = categories => {
+  for (let i = categories.length - 1; i >= 0; i--) {
+    const category = categories[i];
+    if (["DGS", "LS"].includes(category.name)) {
+      categories.splice(i, 1);
+    }
+  }
+  return categories;
 };
 
 const decodeHtml = str => {

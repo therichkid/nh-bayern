@@ -1,15 +1,20 @@
 <template>
   <div class="text-center">
-    <v-dialog v-model="dialog" width="500">
+    <v-tooltip bottom>
       <template v-slot:activator="{ on }">
-        <v-btn icon v-on="on" aria-label="Information">
-          <v-icon>mdi-information</v-icon>
+        <v-btn icon v-on="on" aria-label="Information" @click="dialog = true">
+          <v-icon>mdi-palette</v-icon>
         </v-btn>
       </template>
+      <span>Informationen zur Farbgestaltung</span>
+    </v-tooltip>
 
+    <v-dialog v-model="dialog" width="500">
       <v-card>
         <v-card-title class="primary white--text">
-          <span class="headline">Informationen zur Farbgestaltung</span>
+          <span class="headline" style="word-break: break-all;">
+            Informationen zur Farbgestaltung
+          </span>
           <v-spacer></v-spacer>
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">

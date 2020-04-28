@@ -1,6 +1,6 @@
 <template>
   <div>
-    <LoadingSkeleton type="shg" v-if="isLoading" />
+    <LoadingSkeleton type="group" v-if="isLoading" />
     <LoadingError v-if="loadingError" :height="250" @retryAgain="getGroup(groupName)" />
 
     <v-row v-if="!isLoading && !loadingError && Object.keys(group).length">
@@ -9,7 +9,12 @@
       </v-col>
       <!-- 1st column -->
       <v-col cols="12" sm="4">
-        <v-img :src="group.featuredImage.source" maxHeight="300px" contain alt="SHG-Logo"></v-img>
+        <v-img
+          :src="group.featuredImage.source"
+          maxHeight="300px"
+          contain
+          alt="Logo des Verbands"
+        ></v-img>
       </v-col>
       <!-- 2nd column -->
       <v-col cols="12" sm="4">
@@ -77,20 +82,12 @@
       ></v-col>
     </v-row>
 
-    <v-container>
-      <h1 class="display-1 mb-2">Neuigkeiten</h1>
-      <Posts :page="page" :groupName="groupName" @postPagesInit="postPages = $event" />
-    </v-container>
-    <div class="text-center" v-if="postPages">
-      <v-pagination v-model="page" :length="postPages" @input="changePage()"></v-pagination>
-    </div>
     <Events :groupName="groupName" />
   </div>
 </template>
 
 <script>
 import LoadingSkeleton from "@/components/partials/LoadingSkeleton";
-import Posts from "@/components/posts/Posts";
 const Events = () => import(/* webpackChunkName: "events" */ "@/components/events/Events");
 const LoadingError = () =>
   import(/* webpackChunkName: "dialog" */ "@/components/partials/LoadingError");
@@ -99,7 +96,6 @@ export default {
   components: {
     LoadingSkeleton,
     LoadingError,
-    Posts,
     Events
   },
 
@@ -110,9 +106,7 @@ export default {
   data() {
     return {
       group: {},
-      hasOptionalInfo: false,
-      page: parseInt(this.$route.params.page, 10) || 1,
-      postPages: 0
+      hasOptionalInfo: false
     };
   },
 
@@ -135,9 +129,6 @@ export default {
   },
 
   methods: {
-    changePage() {
-      this.$router.push(`/shgs/${this.groupName}/page/${this.page}`);
-    },
     async getGroup(groupName) {
       let groups = [];
       const groupsFetched = this.$store.getters.getFetchedGroups();

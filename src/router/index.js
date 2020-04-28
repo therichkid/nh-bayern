@@ -6,7 +6,7 @@ import News from "../views/News";
 import Posts from "../views/Posts";
 import Post from "../views/Post";
 import Event from "../views/Event";
-import SHG from "../views/SHG";
+import Group from "../views/Group";
 import Page from "../views/Page";
 import PageNotFound from "../views/PageNotFound";
 
@@ -29,9 +29,9 @@ const routes = [
       title: "Home"
     }
   },
-  { path: "/bayciv", redirect: "/news" },
-  { path: "/aktuelle-meldungen", redirect: "/news" },
-  { path: "/aktuelle-meldungen-gruppen", redirect: "/news" },
+  { path: "/pressemitteilungen", redirect: "/news" },
+  { path: "/woche-der-kommunikation", redirect: "/news" },
+  { path: "/woche-der-senior-innen", redirect: "/news" },
   {
     path: "/news/page/:page?",
     name: "news",
@@ -43,27 +43,19 @@ const routes = [
   },
   // News redirects
   {
-    path: "/aktuelles-lesen/*",
+    path: "/newsbeitrag/*",
     redirect: route => "/news/" + route.path.split("/").pop().replace(".html", "")
   },
   {
-    path: "/pressespiegel/articles/*",
+    path: "/pressebeitrag/*",
     redirect: route => "/news/" + route.path.split("/").pop().replace(".html", "")
   },
   {
-    path: "/erfahrungen/articles/*",
+    path: "/newsbeitrag.25/*",
     redirect: route => "/news/" + route.path.split("/").pop().replace(".html", "")
   },
   {
-    path: "/videos/articles/*",
-    redirect: route => "/news/" + route.path.split("/").pop().replace(".html", "")
-  },
-  {
-    path: "/texte/articles/*",
-    redirect: route => "/news/" + route.path.split("/").pop().replace(".html", "")
-  },
-  {
-    path: "/gedichte/articles/*",
+    path: "/newsbeitrag-33/*",
     redirect: route => "/news/" + route.path.split("/").pop().replace(".html", "")
   },
   {
@@ -75,8 +67,6 @@ const routes = [
     },
     props: true
   },
-  { path: "/anmeldungen", redirect: "/events" },
-  { path: "/veranstaltungen", redirect: "/events" },
   { path: "/kalender", redirect: "/events" },
   {
     path: "/events",
@@ -108,17 +98,114 @@ const routes = [
       type: "event"
     })
   },
-  // SHG redirects
-  { path: "/shg-allgaeu", redirect: "/shgs/ci-shg-allgaeu" },
+  // { path: "/kurzprofil", redirect: "/netzwerk" },
+  // {
+  //   path: "/netzwerk",
+  //   name: "network",
+  //   component: Network,
+  //   meta: {
+  //     title: "Netzwerk"
+  //   }
+  // },
+  // Group redirects
   {
-    path: "/shgs/:groupName/page/:page?",
-    name: "shg",
-    component: SHG,
+    path: "/kurzprofil/articles/vereinigung-der-eltern-hoergeschaedigter-in-bayern-e-v",
+    redirect: "/netzwerk/ev"
+  },
+  {
+    path:
+      "/kurzprofil/articles/regens-wagner-offene-hilfen-in-der-stadt-augsburg-und-im-regierungsbezirk-schwaben",
+    redirect: "/netzwerk/regens-wagner"
+  },
+  {
+    path: "/kurzprofil/articles/schriftdolmetscherverband-bayern-e-v",
+    redirect: "/netzwerk/sd-bayern"
+  },
+  {
+    path:
+      "/kurzprofil/articles/arbeitsgemeinschaft-katholische-hoergeschaedigtenseelsorge-in-bayern",
+    redirect: "/netzwerk/hoergeschaedigtenseelsorge"
+  },
+  {
+    path: "/kurzprofil/articles/der-paritaetische-bayern-bezirksverband-oberfranken",
+    redirect: "/netzwerk/der-paritaetische"
+  },
+  {
+    path:
+      "/kurzprofil/articles/evang-luth-gehoerlosenseelsorge-gebaerdensprachliche-gemeinden-in-bayern",
+    redirect: "/netzwerk/egg"
+  },
+  {
+    path: "/kurzprofil/articles/blwg",
+    redirect: "/netzwerk/blwg"
+  },
+  {
+    path: "/kurzprofil/articles/gehoerlosenverband-muenchen-und-umland-ev",
+    redirect: "/netzwerk/gmu"
+  },
+  {
+    path: "/kurzprofil/articles/kontakte-und-informationen-fuer-morbus-meniere-kimm-e-v",
+    redirect: "/netzwerk/kimm"
+  },
+  {
+    path: "/kurzprofil/articles/schwerhoerigenseelsorge-der-evang-luth-kirche-in-bayern",
+    redirect: "/netzwerk/shs-elkb"
+  },
+  {
+    path: "/kurzprofil/articles/landesverband-bayern-der-gehoerlosen-e-v",
+    redirect: "/netzwerk/lvbygl"
+  },
+  {
+    path: "/kurzprofil/articles/berufsverband-bayerischer-hoergeschaedigtenpaedagogen-bbh-e-v",
+    redirect: "/netzwerk/bbh"
+  },
+  {
+    path:
+      "/kurzprofil/articles/landesarbeitsgemeinschaft-hoerbehinderter-studenten-und-absolventen-ev-lhsa-bayern",
+    redirect: "/netzwerk/dhsa"
+  },
+  {
+    path:
+      "/kurzprofil/articles/fachdienst-integration-taubblinder-und-hoersehbehinderter-menschen-in-bayern-itm",
+    redirect: "/netzwerk/itm"
+  },
+  {
+    path: "/kurzprofil/articles/landesverband-bayern-der-schwerhoerigen-und-ertaubten-ev",
+    redirect: "/netzwerk/lvbysh"
+  },
+  {
+    path: "/kurzprofil/articles/power-trotz-handicap",
+    redirect: "/netzwerk/pth"
+  },
+  {
+    path: "/kurzprofil/articles/bayerischer-cochlea-implantat-verband-ev",
+    redirect: "/netzwerk/bayciv"
+  },
+  {
+    path: "/kurzprofil/articles/gib-blwg",
+    redirect: "/netzwerk/gib-blwg"
+  },
+  {
+    path: "/kurzprofil/articles/deutsche-tinnitus-liga",
+    redirect: "/netzwerk/dtl"
+  },
+  {
+    path:
+      "/kurzprofil/articles/berufsfachverband-der-bayerischen-gebaerdensprachdolmetscherinnen-bayern-ev-bgsd",
+    redirect: "/netzwerk/bgsd"
+  },
+  {
+    path: "/kurzprofil/articles/berufsbildungswerk-muenchen",
+    redirect: "/netzwerk/bbw"
+  },
+  {
+    path: "/netzwerk/:groupName",
+    name: "netzwerk",
+    component: Group,
     meta: {
-      title: "Selbsthilfegruppen"
+      title: "Netzwerk"
     },
-    props: true,
-    alias: "/shgs/:groupName"
+    props: true
   },
   {
     path: "/erfahrungen/page/:page?",

@@ -1,8 +1,10 @@
 export default {
-  getFetchedPosts: state => (page, groupName) => {
+  getFetchedPosts: state => (page, categoryName) => {
     let posts;
-    if (groupName) {
-      posts = state.postsPerGroup[groupName] ? state.postsPerGroup[groupName][page] : null;
+    if (categoryName) {
+      posts = state.postsPerCategory[categoryName]
+        ? state.postsPerCategory[categoryName][page]
+        : null;
     } else {
       posts = state.posts[page];
     }
@@ -16,10 +18,10 @@ export default {
         }
       }
     }
-    for (const groupName in state.postsPerGroup) {
-      const postsPerGroup = state.postsPerGroup[groupName];
-      for (const page in postsPerGroup) {
-        for (const post of postsPerGroup[page]) {
+    for (const categoryName in state.postsPerCategory) {
+      const postsPerCategory = state.postsPerCategory[categoryName];
+      for (const page in postsPerCategory) {
+        for (const post of postsPerCategory[page]) {
           if (post.slug === slug) {
             return [true, post];
           }
@@ -31,13 +33,6 @@ export default {
   getFetchedEvents: state => (year, month) => {
     if (state.events[year] && state.events[year][month]) {
       const events = [...state.events[year][month]];
-      return [true, events];
-    }
-    return [false, null];
-  },
-  getFetchedMainEvents: state => () => {
-    if (state.mainEvents.length) {
-      const events = [...state.mainEvents];
       return [true, events];
     }
     return [false, null];
@@ -55,11 +50,6 @@ export default {
         if (event.slug === slug) {
           return [true, event];
         }
-      }
-    }
-    for (const event of state.mainEvents) {
-      if (event.slug === slug) {
-        return [true, event];
       }
     }
     for (const groupName in state.eventsPerGroup) {
@@ -82,9 +72,5 @@ export default {
   getFetchedGroups: state => () => {
     const groups = state.groups;
     return groups && groups.length ? [true, groups] : [false, null];
-  },
-  getFetchedFacilities: state => () => {
-    const facilities = state.facilities;
-    return facilities && facilities.length ? [true, facilities] : [false, null];
   }
 };

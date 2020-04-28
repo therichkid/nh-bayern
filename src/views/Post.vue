@@ -20,7 +20,7 @@
           <v-icon color="primary" class="pr-1">mdi-tag</v-icon>
           <span v-for="(category, i) in post.categories" :key="i">
             <span v-if="i !== 0">, </span>
-            <router-link :to="'/shgs/' + category.slug" v-if="category.type === 'shg'">{{
+            <router-link :to="'/netzwerk/' + category.slug" v-if="category.type === 'group'">{{
               category.name
             }}</router-link>
             <span v-else>{{ category.name }}</span>

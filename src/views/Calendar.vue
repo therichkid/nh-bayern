@@ -140,7 +140,7 @@
             <td v-if="$vuetify.breakpoint.mdAndUp">
               <span v-for="(group, i) in event.groups" :key="i">
                 <span v-if="i !== 0">, </span>
-                <router-link :to="'/shgs/' + group.slug">
+                <router-link :to="'/netzwerk/' + group.slug">
                   {{ group.name }}
                 </router-link>
               </span>

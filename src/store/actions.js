@@ -2,7 +2,7 @@ import api from "../services/api";
 import formatter from "../services/formatter";
 
 export default {
-  fetchPosts(context, { page, groupName }) {
+  fetchPosts(context, { page, categoryName }) {
     context.commit("changePostsLoading", true);
     context.commit("changePostsLoadingError", false);
     const path = "wp/v2/posts";
@@ -11,9 +11,9 @@ export default {
       page,
       per_page: 6
     };
-    if (groupName) {
+    if (categoryName) {
       Object.assign(params, {
-        "filter[category_name]": groupName
+        "filter[category_name]": categoryName
       });
     }
     return new Promise((resolve, reject) => {
@@ -23,15 +23,15 @@ export default {
           response => {
             let { data, headers } = response;
             const posts = formatter.formatPosts(data);
-            if (groupName) {
+            if (categoryName) {
               context.commit("storePostsPerGroup", {
                 posts,
                 page,
-                groupName
+                categoryName
               });
               context.commit("setPostHeadersPerGroup", {
                 headers,
-                groupName
+                categoryName
               });
             } else {
               context.commit("storePosts", { posts, page });
@@ -99,12 +99,9 @@ export default {
       );
     });
   },
-  fetchEvents(context, { startDate, endDate, onlyMainEvents, groupName }) {
-    context.commit("changeEventsLoading", { value: true, onlyMainEvents });
-    context.commit("changeEventsLoadingError", {
-      value: false,
-      onlyMainEvents
-    });
+  fetchEvents(context, { startDate, endDate, groupName }) {
+    context.commit("changeEventsLoading", true);
+    context.commit("changeEventsLoadingError", false);
     let year, month;
     const path = "wp/v2/events";
     const params = {
@@ -128,12 +125,6 @@ export default {
         "filter[meta_query][1][compare]": "<"
       });
     }
-    if (onlyMainEvents) {
-      Object.assign(params, {
-        "filter[meta_query][2][key]": "hauptevent",
-        "filter[meta_query][2][value]": 1
-      });
-    }
     if (groupName) {
       Object.assign(params, {
         "filter[category_name]": groupName
@@ -146,10 +137,8 @@ export default {
           response => {
             let { data } = response;
             const events = formatter.formatEvents(data);
-            if (year && month && !onlyMainEvents && !groupName) {
+            if (year && month && !groupName) {
               context.commit("storeEvents", { events, year, month });
-            } else if (onlyMainEvents) {
-              context.commit("storeMainEvents", events);
             } else if (groupName) {
               context.commit("storeEventsPerGroup", { events, groupName });
             }
@@ -157,19 +146,13 @@ export default {
             resolve(events);
           },
           error => {
-            context.commit("changeEventsLoadingError", {
-              value: true,
-              onlyMainEvents
-            });
+            context.commit("changeEventsLoadingError", true);
             context.commit("incrementFailedRequests", 1);
             reject(error);
           }
         )
         .finally(() => {
-          context.commit("changeEventsLoading", {
-            value: false,
-            onlyMainEvents
-          });
+          context.commit("changeEventsLoading", false);
         });
     });
   },
@@ -254,7 +237,7 @@ export default {
   fetchGroups(context) {
     context.commit("changeGroupsLoading", true);
     context.commit("changeGroupsLoadingError", false);
-    const path = "wp/v2/shgs";
+    const path = "wp/v2/netzwerk";
     const params = {
       _embed: true,
       per_page: 100
@@ -278,36 +261,6 @@ export default {
         )
         .finally(() => {
           context.commit("changeGroupsLoading", false);
-        });
-    });
-  },
-  fetchFacilities(context) {
-    context.commit("changeFacilitiesLoading", true);
-    context.commit("changeFacilitiesLoadingError", false);
-    const path = "wp/v2/einrichtungen";
-    const params = {
-      _embed: true,
-      per_page: 100
-    };
-    return new Promise((resolve, reject) => {
-      api
-        .fetchData(path, params)
-        .then(
-          response => {
-            let { data } = response;
-            const facilities = formatter.formatGroups(data);
-            context.commit("storeFacilities", facilities);
-            context.commit("incrementFailedRequests", 0);
-            resolve(facilities);
-          },
-          error => {
-            context.commit("changeFacilitiesLoadingError", true);
-            context.commit("incrementFailedRequests", 1);
-            reject(error);
-          }
-        )
-        .finally(() => {
-          context.commit("changeFacilitiesLoading", false);
         });
     });
   }

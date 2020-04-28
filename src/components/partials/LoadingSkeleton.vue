@@ -6,8 +6,8 @@
     </v-col>
   </v-row>
 
-  <!-- SHG -->
-  <v-row v-else-if="type === 'shg'">
+  <!-- Group -->
+  <v-row v-else-if="type === 'group'">
     <v-col cols="12">
       <v-skeleton-loader type="heading"></v-skeleton-loader>
     </v-col>

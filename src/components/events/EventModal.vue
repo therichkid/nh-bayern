@@ -50,7 +50,7 @@
           <v-icon :color="event.color || 'primary'" class="pr-1">mdi-account-multiple</v-icon>
           <span v-for="(group, i) in event.groups" :key="i">
             <span v-if="i !== 0">, </span>
-            <router-link :to="'/shgs/' + group.slug">{{ group.name }}</router-link>
+            <router-link :to="'/netzwerk/' + group.slug">{{ group.name }}</router-link>
           </span>
         </v-col>
         <!-- Address -->
