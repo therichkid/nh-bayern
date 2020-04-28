@@ -3,7 +3,6 @@ import Router from "vue-router";
 
 import Home from "../views/Home";
 import News from "../views/News";
-import Posts from "../views/Posts";
 import Post from "../views/Post";
 import Event from "../views/Event";
 import Network from "../views/Network";
@@ -209,19 +208,6 @@ const routes = [
     props: true
   },
   {
-    path: "/erfahrungen/page/:page?",
-    name: "posts",
-    component: Posts,
-    meta: {
-      title: "Erfahrungen"
-    },
-    props: route => ({
-      routerPage: "erfahrungen",
-      page: route.params.page
-    }),
-    alias: "/erfahrungen"
-  },
-  {
     path: "/404",
     name: "404",
     component: PageNotFound,
@@ -229,8 +215,6 @@ const routes = [
       title: "404"
     }
   },
-  // Page redirects
-  // TODO
   {
     path: "/:slug",
     name: "page",
