@@ -6,6 +6,7 @@ import News from "../views/News";
 import Posts from "../views/Posts";
 import Post from "../views/Post";
 import Event from "../views/Event";
+import Network from "../views/Network";
 import Group from "../views/Group";
 import Page from "../views/Page";
 import PageNotFound from "../views/PageNotFound";
@@ -98,15 +99,15 @@ const routes = [
       type: "event"
     })
   },
-  // { path: "/kurzprofil", redirect: "/netzwerk" },
-  // {
-  //   path: "/netzwerk",
-  //   name: "network",
-  //   component: Network,
-  //   meta: {
-  //     title: "Netzwerk"
-  //   }
-  // },
+  { path: "/kurzprofil", redirect: "/netzwerk" },
+  {
+    path: "/netzwerk",
+    name: "network",
+    component: Network,
+    meta: {
+      title: "Netzwerk"
+    }
+  },
   // Group redirects
   {
     path: "/kurzprofil/articles/vereinigung-der-eltern-hoergeschaedigter-in-bayern-e-v",

@@ -1,8 +1,8 @@
 <template>
-  <v-container>
+  <v-container v-if="isLoading || loadingError || events.length">
     <v-row align="center">
       <v-col cols="auto" class="mr-auto">
-        <h2 class="display-1 my-2" style="word-break: break-all;">Veranstaltungen</h2>
+        <h2 class="display-1 my-2" style="word-wrap: break-word;">Veranstaltungen</h2>
       </v-col>
       <v-col cols="auto" v-if="!groupName">
         <v-btn text to="/events">
@@ -54,15 +54,12 @@
         </v-col>
       </v-row>
     </template>
-
-    <NoContentYet v-if="!isLoading && !loadingError && !events.length" />
   </v-container>
 </template>
 
 <script>
 import Loading from "@/components/partials/Loading";
 import EventCard from "@/components/events/EventCard";
-import NoContentYet from "@/components/partials/NoContentYet";
 const LoadingError = () =>
   import(/* webpackChunkName: "dialog" */ "@/components/partials/LoadingError");
 
@@ -70,8 +67,7 @@ export default {
   components: {
     Loading,
     LoadingError,
-    EventCard,
-    NoContentYet
+    EventCard
   },
 
   props: {

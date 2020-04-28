@@ -7,14 +7,6 @@
       <!-- Header -->
       <template v-if="type === 'event'">
         <v-card-title class="primary white--text">
-          <div v-if="event.featured">
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on }">
-                <v-icon color="secondary" class="mr-1" v-on="on">mdi-star</v-icon>
-              </template>
-              <span>Hauptevent</span>
-            </v-tooltip>
-          </div>
           <span class="headline pr-2">{{ event.dayFormatted }}.</span>
           <span class="caption pt-2">{{ event.monthFormatted }}</span>
         </v-card-title>

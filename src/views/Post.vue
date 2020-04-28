@@ -4,6 +4,17 @@
     <LoadingError v-if="loadingError" :height="500" @retryAgain="getPostBySlug(slug)" />
 
     <v-row v-if="!isLoading && !loadingError && Object.keys(post).length" align="center">
+      <v-chip-group column class="px-3">
+        <v-chip
+          :color="post.color || 'primary'"
+          text-color="white"
+          v-for="category in post.categories"
+          :key="category.name"
+          :to="category.type === 'group' ? '/netzwerk/' + category.slug : ''"
+        >
+          {{ category.name }}
+        </v-chip>
+      </v-chip-group>
       <!-- Header -->
       <v-col cols="12">
         <h1 class="display-1">{{ post.title }}</h1>
@@ -11,21 +22,10 @@
 
       <!-- Body -->
       <v-col cols="12">
-        <v-icon color="primary" class="pr-1">mdi-calendar</v-icon>
-        <span class="mr-2">{{ post.date }}</span>
-        <v-icon color="primary" class="pr-1">mdi-account</v-icon>
-        <span class="mr-2">{{ post.author }}</span>
-        <!-- Categories -->
-        <template v-if="post.categories.length">
-          <v-icon color="primary" class="pr-1">mdi-tag</v-icon>
-          <span v-for="(category, i) in post.categories" :key="i">
-            <span v-if="i !== 0">, </span>
-            <router-link :to="'/netzwerk/' + category.slug" v-if="category.type === 'group'">{{
-              category.name
-            }}</router-link>
-            <span v-else>{{ category.name }}</span>
-          </span>
-        </template>
+        <v-icon class="pr-1">mdi-calendar</v-icon>
+        <span class="body-2 mr-2">{{ post.date }}</span>
+        <v-icon class="pr-1">mdi-account</v-icon>
+        <span class="body-2 mr-2">{{ post.author }}</span>
       </v-col>
       <v-col cols="12" v-html="post.content" :style="{ fontSize: fontSize + 'px' }"></v-col>
       <!-- Social media -->

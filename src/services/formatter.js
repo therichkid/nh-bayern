@@ -134,18 +134,23 @@ export default {
         slug: orig.slug,
         name: decodeHtml(orig.title.rendered),
         content: orig.content ? orig.content.rendered : null,
-        address: addAddress(orig)
-        // mailingAddress: addMailingAddress(orig),
-        // email: orig.acf.email,
-        // phone: orig.acf.telefon,
-        // mobile: orig.acf.mobil,
-        // fax: orig.acf.fax,
-        // homepage: orig.acf.homepage,
-        // featuredImage: addFeaturedImage(orig),
-        // type: orig.acf.typ
+        address: addAddress(orig),
+        address2: addAddress2(orig),
+        email: orig.acf.email,
+        phone: orig.acf.telefon,
+        mobile: orig.acf.mobil,
+        fax: orig.acf.fax,
+        homepage: orig.acf.homepage,
+        email2: orig.acf.email_2,
+        phone2: orig.acf.telefon_2,
+        mobile2: orig.acf.mobil_2,
+        fax2: orig.acf.fax_2,
+        homepage2: orig.acf.homepage_2,
+        categories: addCategories(orig, true),
+        featuredImage: addFeaturedImage(orig)
       };
-      const categories = addCategories(orig, true);
-      group.category = removeParentCategories(categories)[0];
+      const { color } = addCategoryProps(group.categories, false);
+      group.color = color;
       groups.push(group);
     }
     return groups;
@@ -224,7 +229,7 @@ const checkDateFormat = (type, ...input) => {
   }
 };
 
-// Add the address to an event or a Selbsthilfegruppe
+// Add the address to an event or a group
 const addAddress = input => {
   let str = "";
   if (input.acf.adressname) {
@@ -238,22 +243,22 @@ const addAddress = input => {
   return str;
 };
 
-// // Add the address to an event or a Selbsthilfegruppe
-// const addMailingAddress = input => {
-//   if (!input.acf.postanschrift) {
-//     return null;
-//   }
-//   let str = "";
-//   if (input.acf.postanschriftsname) {
-//     str += `${input.acf.postanschriftsname}, `;
-//   }
-//   if (input.acf.postanschrift.address.includes("Deutschland")) {
-//     str += input.acf.postanschrift.address.split(",").slice(0, -1).join(",");
-//   } else {
-//     str += input.acf.postanschrift.address;
-//   }
-//   return str;
-// };
+// Add the 2nd address to a group
+const addAddress2 = input => {
+  if (!input.acf.adresse_2) {
+    return null;
+  }
+  let str = "";
+  if (input.acf.adressname_2) {
+    str += `${input.acf.adressname_2}, `;
+  }
+  if (input.acf.adresse_2.address.includes("Deutschland")) {
+    str += input.acf.adresse_2.address.split(",").slice(0, -1).join(",");
+  } else {
+    str += input.acf.adresse_2.address;
+  }
+  return str;
+};
 
 // Add a featured image to an article or a group
 const addFeaturedImage = input => {
@@ -291,7 +296,10 @@ const addCategories = (input, onlyGroups) => {
           categories.push({
             name: taxonomy.name,
             slug: taxonomy.slug,
-            type: isGroupTaxonomy(taxonomy) ? "group" : ""
+            type:
+              isGroupTaxonomy(taxonomy) && !["neutral", "dgs", "ls"].includes(taxonomy.slug)
+                ? "group"
+                : ""
           });
         }
       }
@@ -301,7 +309,7 @@ const addCategories = (input, onlyGroups) => {
 };
 
 const isGroupTaxonomy = taxonomy => {
-  const paths = ["dgs", "ls"];
+  const paths = ["neutral", "dgs", "ls"];
   for (const path of paths) {
     if (taxonomy.link.includes(path)) {
       return true;

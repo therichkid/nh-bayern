@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <h1 class="display-1 mb-2" v-html="shared.capitalize(routerPage)"></h1>
-    <Posts :page="page" :groupName="routerPage" @postPagesInit="postPages = $event" />
+    <Posts :page="page" :categoryName="routerPage" @postPagesInit="postPages = $event" />
     <div class="text-center" v-if="postPages">
       <v-pagination v-model="page" :length="postPages" @input="changePage()"></v-pagination>
     </div>

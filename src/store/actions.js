@@ -24,12 +24,12 @@ export default {
             let { data, headers } = response;
             const posts = formatter.formatPosts(data);
             if (categoryName) {
-              context.commit("storePostsPerGroup", {
+              context.commit("storePostsPerCategory", {
                 posts,
                 page,
                 categoryName
               });
-              context.commit("setPostHeadersPerGroup", {
+              context.commit("setPostHeadersPerCategory", {
                 headers,
                 categoryName
               });

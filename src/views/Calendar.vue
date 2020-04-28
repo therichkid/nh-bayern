@@ -1,6 +1,13 @@
 <template>
   <v-container>
-    <h1 class="display-1 mb-2">Veranstaltungen</h1>
+    <v-row align="center">
+      <v-col cols="auto" class="mr-auto">
+        <h1 class="display-1 mb-2" style="word-wrap: break-word;">Veranstaltungen</h1>
+      </v-col>
+      <v-col cols="auto">
+        <CategoryInfo />
+      </v-col>
+    </v-row>
 
     <LoadingError v-if="loadingError" @retryAgain="forceUpdate()" />
 
@@ -82,6 +89,7 @@
         eventMoreText="Mehr"
         :events="filteredEvents"
         :event-margin-bottom="3"
+        :event-color="getEventColor"
         :now="today"
         :type="selectedType !== 'list' ? selectedType : 'month'"
         :weekdays="weekdays"
@@ -106,7 +114,7 @@
             <th class="text-left">Datum</th>
             <th class="text-left">Zeit</th>
             <th class="text-left">Veranstaltung</th>
-            <th class="text-left" v-if="$vuetify.breakpoint.mdAndUp">Selbsthilfegruppe</th>
+            <th class="text-left" v-if="$vuetify.breakpoint.mdAndUp">Verband</th>
             <th style="width: 1px;"></th>
           </tr>
         </thead>
@@ -126,24 +134,20 @@
               {{ event.startTime }}
               <span v-if="event.endTime">bis {{ event.endTime }}</span>
             </td>
-            <td>
-              <span v-if="event.featured">
-                <v-tooltip bottom>
-                  <template v-slot:activator="{ on }">
-                    <v-icon color="secondary" class="mr-1" v-on="on">mdi-star</v-icon>
-                  </template>
-                  <span>Hauptevent</span>
-                </v-tooltip>
-              </span>
-              <span>{{ event.title }}</span>
-            </td>
+            <td>{{ event.title }}</td>
             <td v-if="$vuetify.breakpoint.mdAndUp">
-              <span v-for="(group, i) in event.groups" :key="i">
-                <span v-if="i !== 0">, </span>
-                <router-link :to="'/netzwerk/' + group.slug">
+              <!-- Groups -->
+              <v-chip-group column>
+                <v-chip
+                  :color="event.color || 'primary'"
+                  text-color="white"
+                  v-for="group in event.groups"
+                  :key="group.name"
+                  small
+                >
                   {{ group.name }}
-                </router-link>
-              </span>
+                </v-chip>
+              </v-chip-group>
             </td>
             <td>
               <v-tooltip bottom>
@@ -163,6 +167,7 @@
 </template>
 
 <script>
+import CategoryInfo from "@/components/partials/CategoryInfo";
 const LoadingError = () =>
   import(/* webpackChunkName: "dialog" */ "@/components/partials/LoadingError");
 const EventModal = () => import(/* webpackChunkName: "dialog" */ "@/components/events/EventModal");
@@ -170,7 +175,8 @@ const EventModal = () => import(/* webpackChunkName: "dialog" */ "@/components/e
 export default {
   components: {
     LoadingError,
-    EventModal
+    EventModal,
+    CategoryInfo
   },
 
   data() {
@@ -393,6 +399,9 @@ export default {
         }
         return 0;
       });
+    },
+    getEventColor(event) {
+      return event.color || "var(--v-primary-base)";
     }
   },
 

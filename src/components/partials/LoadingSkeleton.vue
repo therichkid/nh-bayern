@@ -16,6 +16,13 @@
     </v-col>
   </v-row>
 
+  <!-- Network -->
+  <v-row v-else-if="type === 'network'">
+    <v-col v-for="i in amount" :key="i" cols="6" sm="3">
+      <v-skeleton-loader type="card"></v-skeleton-loader>
+    </v-col>
+  </v-row>
+
   <!-- Post, page -->
   <v-row v-else>
     <v-col cols="12">
@@ -28,6 +35,16 @@
 export default {
   props: {
     type: String
+  },
+
+  computed: {
+    amount() {
+      if (this.$vuetify.breakpoint.xsOnly) {
+        return 4;
+      } else {
+        return 8;
+      }
+    }
   }
 };
 </script>
