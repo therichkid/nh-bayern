@@ -48,7 +48,7 @@ export default {
         },
         {
           icon: "mdi-phone",
-          text: "<a href='tel:+4988414895518'>+49 (0) 8841 489 5518</a>"
+          text: "<a href='tel:+498932928926'>+49 (0) 89 329 28 926</a>"
         },
         {
           icon: "mdi-fax",
@@ -90,6 +90,6 @@ export default {
   padding-left: 60px;
 }
 .link >>> a {
-  color: var(--v-secondary-base);
+  color: #fff;
 }
 </style>
