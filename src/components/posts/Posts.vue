@@ -55,7 +55,7 @@
                 </v-row>
               </v-card-subtitle>
               <v-card-text>
-                <div v-html="article.excerpt"></div>
+                <div v-html="article.excerpt" style="text-align: justify;"></div>
               </v-card-text>
               <v-spacer></v-spacer>
               <v-card-actions>

@@ -129,7 +129,7 @@
       <v-col
         cols="12"
         v-html="group.content"
-        :style="{ fontSize: fontSize + 'px' }"
+        :style="{ fontSize: fontSize + 'px', 'text-align': 'justify' }"
         v-if="group.content"
       ></v-col>
     </v-row>

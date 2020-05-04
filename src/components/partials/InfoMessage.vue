@@ -9,7 +9,7 @@
       </v-icon>
       <h3
         :class="info.teaser && info.teaser.length < 100 ? 'headline' : 'subtitle-1'"
-        style="flex: 1; word-wrap: break-word; hyphens: auto;"
+        style="flex: 1; word-wrap: break-word; hyphens: auto; text-align: justify;"
       >
         {{ info.teaser }}
       </h3>

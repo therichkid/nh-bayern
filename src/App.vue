@@ -64,6 +64,7 @@ export default {
   line-height: 1.8;
   word-wrap: break-word;
   hyphens: auto;
+  text-align: justify;
 }
 .event-card {
   width: 100%;

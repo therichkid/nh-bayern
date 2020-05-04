@@ -71,7 +71,7 @@
       <!-- Content -->
       <div
         v-html="event.content"
-        :style="{ fontSize: fontSize + 'px' }"
+        :style="{ fontSize: fontSize + 'px', 'text-align': 'justify' }"
         class="mt-2 post-container"
       ></div>
       <!-- Social media -->
