@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar clipped-left app dark color="primary">
+  <v-app-bar clipped-left app dark color="primary" v-bind="responsiveProps">
     <v-app-bar-nav-icon
       @click.stop="onMenuToggleClick()"
       class="hidden-lg-and-up"
@@ -7,22 +7,34 @@
     ></v-app-bar-nav-icon>
 
     <router-link to="/">
+      <div v-if="showTitle && showTallTitle">
+        <v-img
+          class="ml-2 mt-1 tall-logo"
+          src="@/assets/logo_big.svg"
+          height="112"
+          width="160"
+          contain
+          alt="NH Bayern-Logo"
+        ></v-img>
+        <span class="title white--text tall-title">Netzwerk<br />Hörbehinderung<br />Bayern</span>
+      </div>
       <v-img
-        class="mx-2 mt-1"
+        v-else
+        class="mx-2 my-1"
         src="@/assets/logo_white.png"
-        max-height="40"
+        height="40"
         max-width="40"
         alt="NH Bayern-Logo"
       ></v-img>
     </router-link>
 
-    <v-toolbar-title v-if="showTitle" class="ml-2 headline">
+    <v-toolbar-title v-if="showTitle && !showTallTitle" class="ml-2 headline">
       <span v-if="showLongTitle">Netzwerk Hörbehinderung Bayern</span>
       <span v-else>NH Bayern</span>
     </v-toolbar-title>
 
-    <!-- Has ref and to measure the title dimensions -->
-    <v-spacer ref="spacer"></v-spacer>
+    <!-- Has ref and height to measure the title dimensions -->
+    <v-spacer ref="spacer" style="height: 100%;"></v-spacer>
 
     <SearchBar />
 
@@ -95,7 +107,8 @@ export default {
         }
       ],
       showTitle: false,
-      showLongTitle: false
+      showLongTitle: false,
+      showTallTitle: false
     };
   },
 
@@ -113,6 +126,16 @@ export default {
         color = "#ffc107";
       }
       return { icon, color };
+    },
+    responsiveProps() {
+      if (this.$vuetify.breakpoint.xsOnly) {
+        return {};
+      } else {
+        return {
+          prominent: true,
+          shrinkOnScroll: true
+        };
+      }
     }
   },
 
@@ -138,19 +161,27 @@ export default {
       if (!this.$refs.spacer) {
         return;
       }
-      const preWidthThreshold = this.showTitle ? 0 : 100;
-      if (this.$refs.spacer.clientWidth <= preWidthThreshold) {
-        this.showTitle = false;
-        this.showLongTitle = false;
-      } else {
-        this.showTitle = true;
-        const titleWidthThreshold = this.showLongTitle ? 50 : 400;
-        if (this.$refs.spacer.clientWidth > titleWidthThreshold) {
-          this.showLongTitle = true;
+      let showTitle = false;
+      let showLongTitle = false;
+      let showTallTitle = false;
+      const preWidthThreshold = this.showTitle ? 0 : 120;
+      if (this.$refs.spacer.clientWidth > preWidthThreshold) {
+        showTitle = true;
+        if (
+          this.$refs.spacer.clientHeight > 100 &&
+          (this.$refs.spacer.clientWidth > preWidthThreshold + 90 || this.showTallTitle)
+        ) {
+          showTallTitle = true;
         } else {
-          this.showLongTitle = false;
+          const titleWidthThreshold = this.showLongTitle ? 50 : 400;
+          if (this.$refs.spacer.clientWidth > titleWidthThreshold) {
+            showLongTitle = true;
+          }
         }
       }
+      this.showTitle = showTitle;
+      this.showLongTitle = showLongTitle;
+      this.showTallTitle = showTallTitle;
     }
   },
 
@@ -169,4 +200,15 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.tall-logo {
+  display: inline-block;
+}
+.tall-title {
+  display: inline-block;
+  vertical-align: top;
+  padding-top: 9px;
+  margin-left: -80px;
+  line-height: 26px !important;
+}
+</style>
