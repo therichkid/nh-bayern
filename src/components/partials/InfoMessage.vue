@@ -36,7 +36,6 @@ export default {
         console.error(error);
       });
       if (this.info) {
-        console.log("INFO", this.info);
         if (this.info.link) {
           if (this.info.link.match(/http|www/i)) {
             // External link
