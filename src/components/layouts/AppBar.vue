@@ -21,9 +21,10 @@
       <v-img
         v-else
         class="mx-2 my-1"
-        src="@/assets/logo_white.png"
+        src="@/assets/logo_white.svg"
         height="40"
         max-width="40"
+        contain
         alt="NH Bayern-Logo"
       ></v-img>
     </router-link>

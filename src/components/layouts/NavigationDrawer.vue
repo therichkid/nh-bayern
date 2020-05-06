@@ -3,7 +3,7 @@
     <template v-if="$vuetify.breakpoint.mdAndDown">
       <v-list-item>
         <v-list-item-avatar tile>
-          <v-img src="@/assets/logo.png" contain alt="NH Bayern-Logo"></v-img>
+          <v-img src="@/assets/logo.svg" contain alt="NH Bayern-Logo"></v-img>
         </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title class="title">
