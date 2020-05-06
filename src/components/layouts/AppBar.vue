@@ -208,7 +208,7 @@ export default {
   display: inline-block;
   vertical-align: top;
   padding-top: 9px;
-  margin-left: -80px;
+  margin-left: -84px;
   line-height: 26px !important;
 }
 </style>
