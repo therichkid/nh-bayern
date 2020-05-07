@@ -108,6 +108,15 @@ export default {
   margin: 0;
   max-width: 100%;
 }
+@media screen and (max-width: 599px) {
+  .alignright,
+  .alignleft {
+    float: none;
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+}
 .tablepress {
   width: 100%;
   display: table;
