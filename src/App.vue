@@ -66,6 +66,15 @@ export default {
   hyphens: auto;
   text-align: justify;
 }
+.post-container td,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-align: left;
+}
 .event-card {
   width: 100%;
   min-width: 200px;
