@@ -64,16 +64,9 @@ export default {
   line-height: 1.8;
   word-wrap: break-word;
   hyphens: auto;
-  text-align: justify;
 }
-.post-container td,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  text-align: left;
+.post-container p {
+  text-align: justify;
 }
 .event-card {
   width: 100%;
