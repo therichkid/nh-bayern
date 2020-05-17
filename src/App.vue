@@ -123,6 +123,9 @@ export default {
   overflow-x: auto;
   overflow-y: hidden;
 }
+.tablepress th {
+  font-size: unset !important;
+}
 iframe {
   max-width: 100%;
 }
