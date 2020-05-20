@@ -306,20 +306,23 @@ export default {
           data[form.id] = form.value.trim();
         }
       }
-      // Create token for reCAPTCHA
-      const token = await this.$recaptcha("login");
-      await api
-        .postData(data, token, this.formId)
-        .then(response => {
+      try {
+        // Create token for reCAPTCHA
+        const token = await this.$recaptcha("login");
+        await api.postData(data, token, "form", this.formId).then(response => {
           this.alertType = "success";
           this.alertMessage = response;
-        })
-        .catch(error => {
-          this.alertType = "error";
-          this.alertMessage = error.message || error;
         });
-      this.isSending = false;
-      this.dialog = true;
+      } catch (error) {
+        this.alertType = "error";
+        this.alertMessage =
+          error?.data?.message ||
+          error ||
+          "reCAPTCHA-Prüfung war nicht erfolgreich. Bitte versuchen Sie es noch einmal.";
+      } finally {
+        this.isSending = false;
+        this.dialog = true;
+      }
     },
     closeDialog() {
       this.dialog = false;
