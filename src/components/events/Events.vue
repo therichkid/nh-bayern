@@ -2,7 +2,7 @@
   <v-container v-if="isLoading || loadingError || events.length">
     <v-row align="center">
       <v-col cols="auto" class="mr-auto">
-        <h2 class="display-1 my-2" style="word-wrap: break-word;">Veranstaltungen</h2>
+        <h2 class="display-1 my-2" style="word-wrap: break-word">Veranstaltungen</h2>
       </v-col>
       <v-col cols="auto" v-if="!groupName">
         <v-btn text to="/events">
@@ -34,7 +34,7 @@
           <v-btn icon large @click="prev()" aria-label="Vorherige Veranstaltungen">
             <v-icon>mdi-chevron-left</v-icon>
           </v-btn>
-          <v-item-group mandatory v-model="window" class="text-center" style="width: auto;">
+          <v-item-group mandatory v-model="window" class="text-center" style="width: auto">
             <v-item v-for="i in pages" :key="i" v-slot:default="{ active, toggle }">
               <v-btn :input-value="active" icon @click="toggle" aria-hidden="true">
                 <v-icon>mdi-record</v-icon>

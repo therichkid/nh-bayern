@@ -4,12 +4,12 @@
 
     <AppBar @toggleClicked="onToggleEmit()" />
 
-    <v-content>
+    <v-main>
       <v-container fluid class="main-container">
         <router-view />
       </v-container>
       <Footer />
-    </v-content>
+    </v-main>
 
     <FAB />
 

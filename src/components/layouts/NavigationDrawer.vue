@@ -6,9 +6,7 @@
           <v-img src="@/assets/logo.svg" contain alt="NH Bayern-Logo"></v-img>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title class="title">
-            NH Bayern
-          </v-list-item-title>
+          <v-list-item-title class="title"> NH Bayern </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
       <v-divider></v-divider>

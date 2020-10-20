@@ -15,7 +15,7 @@
           <v-row no-gutters>
             <!-- Image -->
             <v-col cols="auto">
-              <v-avatar class="ma-2" size="200" style="border-radius: 4px;">
+              <v-avatar class="ma-2" size="200" style="border-radius: 4px">
                 <v-img
                   :src="article.featuredImage.source"
                   :alt="article.featuredImage.title"
@@ -55,7 +55,7 @@
                 </v-row>
               </v-card-subtitle>
               <v-card-text>
-                <div v-html="article.excerpt" style="text-align: justify;"></div>
+                <div v-html="article.excerpt" style="text-align: justify"></div>
               </v-card-text>
               <v-spacer></v-spacer>
               <v-card-actions>

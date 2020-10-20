@@ -2,7 +2,7 @@
   <v-container>
     <v-row align="center">
       <v-col cols="auto" class="mr-auto">
-        <h1 class="display-1 mb-2" style="word-wrap: break-word;">Netzwerk</h1>
+        <h1 class="display-1 mb-2" style="word-wrap: break-word">Netzwerk</h1>
       </v-col>
       <v-col cols="auto">
         <CategoryInfo />
@@ -27,7 +27,7 @@
             :src="group.featuredImage.source"
             :alt="group.featuredImage.title"
             max-height="250"
-            style="border-radius: 0;"
+            style="border-radius: 0"
           >
           </v-img>
           <v-chip-group column class="px-3">
@@ -42,7 +42,7 @@
             </v-chip>
           </v-chip-group>
           <v-card-title class="pt-0">
-            <h3 class="subtitle-2" style="word-wrap: break-word; hyphens: auto;">
+            <h3 class="subtitle-2" style="word-wrap: break-word; hyphens: auto">
               {{ group.name }}
             </h3>
           </v-card-title>

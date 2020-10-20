@@ -1,5 +1,5 @@
 <template>
-  <div class="text-right" style="min-height: 48px;">
+  <div class="text-right" style="min-height: 48px">
     <span v-for="network in networks" :key="network.component">
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
@@ -28,12 +28,10 @@
           v-on="on"
           @click="copyToClipboard()"
           class="ml-1 white--text"
-          style="background-color: #607d8b;"
+          style="background-color: #607d8b"
           aria-label="In die Zwischenablage kopieren"
         >
-          <v-icon>
-            mdi-content-copy
-          </v-icon>
+          <v-icon> mdi-content-copy </v-icon>
         </v-btn>
       </template>
       <span>In die Zwischenablage kopieren</span>

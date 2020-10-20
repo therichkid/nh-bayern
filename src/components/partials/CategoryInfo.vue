@@ -12,7 +12,7 @@
     <v-dialog v-model="dialog" width="500">
       <v-card>
         <v-card-title class="primary white--text">
-          <span class="headline" style="word-wrap: break-word;">
+          <span class="headline" style="word-wrap: break-word">
             Informationen zur Farbgestaltung
           </span>
           <v-spacer></v-spacer>
@@ -31,7 +31,7 @@
               v-for="item in items"
               :key="item.color"
               class="px-0"
-              style="vertical-align: middle;"
+              style="vertical-align: middle"
             >
               <v-list-item-avatar :color="item.color" size="24"></v-list-item-avatar>
               <v-list-item-title>{{ item.text }}</v-list-item-title>

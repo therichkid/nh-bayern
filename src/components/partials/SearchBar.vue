@@ -16,7 +16,7 @@
           prepend-inner-icon="mdi-magnify"
           append-icon="mdi-close"
           @click:append="toggleSearchBar"
-          style="width: 55vw; max-width: 600px;"
+          style="width: 55vw; max-width: 600px"
         ></v-text-field>
       </template>
       <v-list>

@@ -2,14 +2,14 @@
   <v-container>
     <v-row align="center">
       <v-col cols="auto" class="mr-auto">
-        <h1 class="display-1 mb-2" style="word-wrap: break-word;">Neuigkeiten</h1>
+        <h1 class="display-1 mb-2" style="word-wrap: break-word">Neuigkeiten</h1>
       </v-col>
       <v-col cols="auto">
         <CategoryInfo />
       </v-col>
     </v-row>
 
-    <v-btn-toggle v-model="selection" mandatory style="overflow-x: auto;">
+    <v-btn-toggle v-model="selection" mandatory style="overflow-x: auto">
       <v-btn value="all">Alle</v-btn>
       <v-btn value="presse">Presse</v-btn>
       <v-btn value="woche-der-kommunikation">Woche der Kommunikation</v-btn>

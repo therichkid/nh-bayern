@@ -35,7 +35,7 @@
     </v-toolbar-title>
 
     <!-- Has ref and height to measure the title dimensions -->
-    <v-spacer ref="spacer" style="height: 100%;"></v-spacer>
+    <v-spacer ref="spacer" style="height: 100%"></v-spacer>
 
     <SearchBar />
 

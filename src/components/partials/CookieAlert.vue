@@ -3,7 +3,7 @@
     <v-sheet
       :color="$vuetify.theme.dark ? '#666666' : '#e4e4e4'"
       class="text-center"
-      style="border-bottom-left-radius: 0; border-bottom-right-radius: 0;"
+      style="border-bottom-left-radius: 0; border-bottom-right-radius: 0"
     >
       <v-container>
         <v-row dense justify="center">

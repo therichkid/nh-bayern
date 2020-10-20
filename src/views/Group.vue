@@ -16,7 +16,7 @@
       </v-chip-group>
 
       <v-col cols="12">
-        <h1 class="display-1" style="word-wrap: break-word;">{{ group.name }}</h1>
+        <h1 class="display-1" style="word-wrap: break-word">{{ group.name }}</h1>
       </v-col>
       <!-- 1st column -->
       <v-col cols="12" sm="4">
