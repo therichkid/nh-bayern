@@ -129,9 +129,6 @@ table.tablepress tr > th {
   color: #fff;
   background-color: var(--v-primary-base);
 }
-table.tablepress tr > td {
-  color: #232323;
-}
 table.tablepress > *:first-child > tr:first-child > th,
 table.tablepress > *:first-child > tr:first-child > td {
   border-top: 1px solid #7a7a7a;
