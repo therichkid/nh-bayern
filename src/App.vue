@@ -117,16 +117,50 @@ export default {
     max-width: 100%;
   }
 }
-.tablepress {
-  width: 100%;
-  display: table;
-  overflow-x: auto;
-  overflow-y: hidden;
-}
-.tablepress th {
-  font-size: unset !important;
-}
 iframe {
   max-width: 100%;
+}
+table.tablepress {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+table.tablepress tr > th {
+  color: #fff;
+  background-color: var(--v-primary-base);
+}
+table.tablepress tr > td {
+  color: #232323;
+}
+table.tablepress > *:first-child > tr:first-child > th,
+table.tablepress > *:first-child > tr:first-child > td {
+  border-top: 1px solid #7a7a7a;
+}
+table.tablepress tr > th,
+table.tablepress tr > td {
+  border-bottom: 1px solid #7a7a7a;
+  padding: 5px 10px;
+}
+table.tablepress tr > th:first-child,
+table.tablepress tr > td:first-child {
+  border-left: 1px solid #7a7a7a;
+}
+table.tablepress tr > th:last-child,
+table.tablepress tr > td:last-child {
+  border-right: 1px solid #7a7a7a;
+}
+table.tablepress > *:first-child > tr:first-child > th:first-child,
+table.tablepress > *:first-child > tr:first-child > td:first-child {
+  border-top-left-radius: 10px;
+}
+table.tablepress > *:first-child > tr:first-child > th:last-child,
+table.tablepress > *:first-child > tr:first-child > td:last-child {
+  border-top-right-radius: 10px;
+}
+table.tablepress tr:last-child > td:first-child {
+  border-bottom-left-radius: 10px;
+}
+table.tablepress tr:last-child > td:last-child {
+  border-bottom-right-radius: 10px;
 }
 </style>
