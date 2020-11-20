@@ -1,7 +1,7 @@
 <template>
   <div class="text-right" style="min-height: 48px">
-    <span v-for="network in networks" :key="network.component">
-      <v-tooltip bottom>
+    <span v-for="network in networks" :key="network.name">
+      <v-tooltip top>
         <template v-slot:activator="{ on }">
           <v-btn
             icon
@@ -21,20 +21,21 @@
     </span>
 
     <!-- Clipboard -->
-    <v-tooltip bottom v-if="type !== 'popup'">
+    <v-tooltip top v-if="type !== 'popup'">
       <template v-slot:activator="{ on }">
         <v-btn
           icon
           v-on="on"
           @click="copyToClipboard()"
-          class="ml-1 white--text"
+          class="white--text"
+          :class="$vuetify.breakpoint.mdAndUp ? 'mx-1' : 'ml-1'"
           style="background-color: #607d8b"
-          aria-label="In die Zwischenablage kopieren"
+          aria-label="Link in die Zwischenablage kopieren"
         >
-          <v-icon> mdi-content-copy </v-icon>
+          <v-icon>mdi-content-copy</v-icon>
         </v-btn>
       </template>
-      <span>In die Zwischenablage kopieren</span>
+      <span>Link in die Zwischenablage kopieren</span>
     </v-tooltip>
     <v-snackbar v-model="snackbar">
       Link erfolgreich in die Zwischenablage kopiert.
@@ -42,6 +43,23 @@
         <v-icon>mdi-close</v-icon>
       </v-btn>
     </v-snackbar>
+
+    <!-- Print -->
+    <v-tooltip top v-if="type !== 'popup' && $vuetify.breakpoint.mdAndUp">
+      <template v-slot:activator="{ on }">
+        <v-btn
+          icon
+          v-on="on"
+          @click="printPage()"
+          class="ml-1 white--text"
+          style="background-color: #2196f3"
+          aria-label="Ohne Medienelemente drucken"
+        >
+          <v-icon>mdi-printer</v-icon>
+        </v-btn>
+      </template>
+      <span>Ohne Medienelemente drucken</span>
+    </v-tooltip>
   </div>
 </template>
 
@@ -115,6 +133,9 @@ export default {
       document.execCommand("copy");
       document.body.removeChild(el);
       this.snackbar = true;
+    },
+    printPage() {
+      window.print();
     }
   }
 };
