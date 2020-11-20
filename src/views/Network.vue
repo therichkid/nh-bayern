@@ -126,9 +126,10 @@ export default {
         groups = groupsFetched[1];
       } else {
         // Not fetched yet
-        groups = await this.$store.dispatch("fetchGroups").catch(error => {
-          console.error(error);
-        });
+        groups =
+          (await this.$store.dispatch("fetchGroups").catch(error => {
+            console.error(error);
+          })) || [];
       }
       this.groups = groups.sort((a, b) => {
         if (a.name < b.name) {

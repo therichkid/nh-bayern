@@ -317,6 +317,13 @@ export default {
       nativeEvent.stopPropagation();
     },
     async updateRange({ start, end }) {
+      // Wait on calls until finished loading if executed multiple times
+      if (this.isLoading) {
+        await this.isFinishedLoading().catch(error => {
+          console.error(error);
+          return;
+        });
+      }
       this.start = start;
       this.end = end;
       if (start.year !== this.currentYear || start.month !== this.currentMonth) {
@@ -352,14 +359,13 @@ export default {
         events = eventsFetched[1];
       } else {
         // Not fetched yet
-        events = await this.$store
-          .dispatch("fetchEvents", {
-            startDate: `${year}${month < 10 ? "0" + month : month}01`,
-            endDate: `${year}${month < 9 ? "0" + (month + 1) : month + 1}01`
-          })
-          .catch(error => {
-            throw error;
-          });
+        events =
+          (await this.$store
+            .dispatch("fetchEvents", {
+              startDate: `${year}${month < 10 ? "0" + month : month}01`,
+              endDate: `${year}${month < 9 ? "0" + (month + 1) : month + 1}01`
+            })
+            .catch(error => console.error(error))) || [];
       }
       return events;
     },
@@ -385,9 +391,8 @@ export default {
         groups = groupsFetched[1];
       } else {
         // Not fetched yet
-        groups = await this.$store.dispatch("fetchGroups").catch(error => {
-          console.error(error);
-        });
+        groups =
+          (await this.$store.dispatch("fetchGroups").catch(error => console.error(error))) || [];
       }
       this.groups = groups.sort((a, b) => {
         if (a.name < b.name) {
@@ -400,6 +405,22 @@ export default {
     },
     getEventColor(event) {
       return event.color || "var(--v-primary-base)";
+    },
+    isFinishedLoading() {
+      return new Promise((resolve, reject) => {
+        let i = 0;
+        const interval = setInterval(() => {
+          i++;
+          if (!this.isLoading) {
+            resolve();
+            clearInterval(interval);
+          }
+          if (i >= 40) {
+            reject(new Error("Timeout while loading events..."));
+            clearInterval(interval);
+          }
+        }, 250);
+      });
     }
   },
 
@@ -410,10 +431,6 @@ export default {
   mounted() {
     this.today = this.getToday();
     this.focus = this.$store.state.calendarFocus || this.today;
-    // Start checking the calendar change after the focus was updated
-    setTimeout(() => {
-      this.$refs.calendar.checkChange();
-    }, 500);
   }
 };
 </script>

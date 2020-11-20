@@ -199,9 +199,10 @@ export default {
         groups = groupsFetched[1];
       } else {
         // Not fetched yet
-        groups = await this.$store.dispatch("fetchGroups").catch(error => {
-          console.error(error);
-        });
+        groups =
+          (await this.$store.dispatch("fetchGroups").catch(error => {
+            console.error(error);
+          })) || [];
       }
       for (const group of groups) {
         if (group.slug === groupName) {

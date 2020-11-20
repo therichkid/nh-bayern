@@ -228,8 +228,21 @@ const router = new Router({
   routes,
   mode: "history",
   base: process.env.BASE_URL,
-  scrollBehavior() {
-    return { x: 0, y: 0 };
+  scrollBehavior(to, from, savedPosition) {
+    if (to.hash) {
+      // Give the anchor some time to load
+      setTimeout(() => {
+        const element = document.getElementById(to.hash.replace("#", ""));
+        if (element && element.scrollIntoView) {
+          element.scrollIntoView({ block: "start", behavior: "smooth" });
+        }
+      }, 1000);
+      return { selector: to.hash };
+    } else if (savedPosition) {
+      return savedPosition;
+    } else {
+      return { x: 0, y: 0 };
+    }
   }
 });
 

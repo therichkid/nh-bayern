@@ -119,9 +119,10 @@ export default {
         this.posts = postsFetched[1];
       } else {
         // Not fetched yet
-        this.posts = await this.$store
-          .dispatch("fetchPosts", { page, categoryName })
-          .catch(error => console.error(error));
+        this.posts =
+          (await this.$store
+            .dispatch("fetchPosts", { page, categoryName })
+            .catch(error => console.error(error))) || [];
       }
       if (categoryName) {
         this.$emit("postPagesInit", this.$store.state.totalPostPagesPerCategory[categoryName]);

@@ -115,15 +115,13 @@ export default {
         events = eventsFetched[1];
       } else {
         // Not fetched yet
-        events = await this.$store
-          .dispatch("fetchEvents", {
-            startDate: `${year}${month < 10 ? "0" : ""}${month}01`,
-            endDate: `${year}${month + 1 < 10 ? "0" : ""}${month + 1}01`
-          })
-          .catch(error => {
-            console.error(error);
-            return [];
-          });
+        events =
+          (await this.$store
+            .dispatch("fetchEvents", {
+              startDate: `${year}${month < 10 ? "0" : ""}${month}01`,
+              endDate: `${year}${month + 1 < 10 ? "0" : ""}${month + 1}01`
+            })
+            .catch(error => console.error(error))) || [];
       }
       const newMonth = month === 12 ? 1 : month + 1;
       const newYear = month === 12 ? year + 1 : year;
@@ -143,12 +141,13 @@ export default {
         events = eventsFetched[1];
       } else {
         // Not fetched yet
-        events = await this.$store
-          .dispatch("fetchEvents", {
-            startDate: `${year}${month < 10 ? "0" : ""}${month}01`,
-            groupName
-          })
-          .catch(error => console.error(error));
+        events =
+          (await this.$store
+            .dispatch("fetchEvents", {
+              startDate: `${year}${month < 10 ? "0" : ""}${month}01`,
+              groupName
+            })
+            .catch(error => console.error(error))) || [];
       }
       return events;
     },
