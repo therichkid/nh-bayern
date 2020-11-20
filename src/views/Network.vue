@@ -2,7 +2,7 @@
   <v-container>
     <v-row align="center">
       <v-col cols="auto" class="mr-auto">
-        <h1 class="display-1 mb-2" style="word-wrap: break-word">Netzwerk</h1>
+        <h1 class="display-1 mb-2">Netzwerk</h1>
       </v-col>
       <v-col cols="auto">
         <CategoryInfo />

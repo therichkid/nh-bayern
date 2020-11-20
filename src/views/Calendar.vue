@@ -2,7 +2,7 @@
   <v-container>
     <v-row align="center">
       <v-col cols="auto" class="mr-auto">
-        <h1 class="display-1 mb-2" style="word-wrap: break-word">Veranstaltungen</h1>
+        <h1 class="display-1 mb-2">Veranstaltungen</h1>
       </v-col>
       <v-col cols="auto">
         <CategoryInfo />

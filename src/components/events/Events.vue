@@ -2,7 +2,7 @@
   <v-container v-if="isLoading || loadingError || events.length">
     <v-row align="center">
       <v-col cols="auto" class="mr-auto">
-        <h2 class="display-1 my-2" style="word-wrap: break-word">Veranstaltungen</h2>
+        <h2 class="display-1 my-2">Veranstaltungen</h2>
       </v-col>
       <v-col cols="auto" v-if="!groupName">
         <v-btn text to="/events">

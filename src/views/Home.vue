@@ -5,7 +5,7 @@
 
       <v-row align="center">
         <v-col cols="auto" class="mr-auto">
-          <h1 class="display-1 mb-2" style="word-wrap: break-word">Neuigkeiten</h1>
+          <h1 class="display-1 mb-2">Neuigkeiten</h1>
         </v-col>
         <v-col cols="auto">
           <CategoryInfo />

@@ -74,7 +74,7 @@ export default {
   max-width: 275px;
 }
 .v-card__title {
-  word-break: normal;
+  word-break: break-word;
 }
 .v-banner__wrapper {
   border-bottom: none !important;

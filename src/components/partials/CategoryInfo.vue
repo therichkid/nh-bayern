@@ -12,9 +12,7 @@
     <v-dialog v-model="dialog" width="500">
       <v-card>
         <v-card-title class="primary white--text">
-          <span class="headline" style="word-wrap: break-word">
-            Informationen zur Farbgestaltung
-          </span>
+          <span class="headline"> Informationen zur Farbgestaltung </span>
           <v-spacer></v-spacer>
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
