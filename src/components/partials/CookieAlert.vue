@@ -1,6 +1,6 @@
 <template>
   <div class="cookie-consent pa-2 pa-md-5" v-if="hasNotAcceptedCookies">
-    <v-card outlined style="max-width: 600px">
+    <v-card outlined class="cookie-consent-card">
       <v-card-text class="pb-0">
         <span>
           Mit der Nutzung dieser Webseite erklären Sie sich damit einverstanden, dass wir Cookies
@@ -59,6 +59,11 @@ export default {
   width: 100%;
   display: flex;
   justify-content: center;
+  pointer-events: none;
   z-index: 5;
+}
+.cookie-consent-card {
+  max-width: 600px;
+  pointer-events: auto;
 }
 </style>
