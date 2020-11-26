@@ -20,13 +20,28 @@
     <meta itemprop="image" content="<%= BASE_URL %>img/og_image.png" />
     <link rel="icon" href="<%= BASE_URL %>img/favicon.png" />
     <title>NH Bayern</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+    />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <link
+      rel="preload"
+      as="style"
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css"
     />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css"
+      media="print"
+      onload="this.media='all'"
     />
     <script>
       if (/MSIE|Trident/.test(window.navigator.userAgent)) {
