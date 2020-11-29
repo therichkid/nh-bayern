@@ -45,21 +45,32 @@
     </v-snackbar>
 
     <!-- Print -->
-    <v-tooltip top v-if="type !== 'popup' && $vuetify.breakpoint.mdAndUp">
-      <template v-slot:activator="{ on }">
-        <v-btn
-          icon
-          v-on="on"
-          @click="printPage()"
-          class="ml-1 white--text"
-          style="background-color: #2196f3"
-          aria-label="Ohne Medienelemente drucken"
-        >
-          <v-icon>mdi-printer</v-icon>
-        </v-btn>
+    <v-menu top left offset-y v-if="type !== 'popup' && $vuetify.breakpoint.mdAndUp">
+      <template v-slot:activator="{ on: menu }">
+        <v-tooltip top>
+          <template v-slot:activator="{ on: tooltip }">
+            <v-btn
+              icon
+              v-on="{ ...menu, ...tooltip }"
+              class="ml-1 white--text"
+              style="background-color: #2196f3"
+              aria-label="Drucken"
+            >
+              <v-icon>mdi-printer</v-icon>
+            </v-btn>
+          </template>
+          <span>Drucken</span>
+        </v-tooltip>
       </template>
-      <span>Ohne Medienelemente drucken</span>
-    </v-tooltip>
+      <v-list>
+        <v-list-item @click="printPage(true)">
+          <v-list-item-title>Mit Bildern</v-list-item-title>
+        </v-list-item>
+        <v-list-item @click="printPage(false)">
+          <v-list-item-title>Ohne Bildern</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
   </div>
 </template>
 
@@ -134,8 +145,15 @@ export default {
       document.body.removeChild(el);
       this.snackbar = true;
     },
-    printPage() {
-      window.print();
+    printPage(withImg) {
+      if (!withImg) {
+        document.body.classList.add("no-img");
+      }
+      // Wait until the menu close animation finished
+      setTimeout(() => {
+        window.print();
+        document.body.classList.remove("no-img");
+      }, 100);
     }
   }
 };
