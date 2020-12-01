@@ -67,7 +67,7 @@
           <v-list-item-title>Mit Bildern</v-list-item-title>
         </v-list-item>
         <v-list-item @click="printPage(false)">
-          <v-list-item-title>Ohne Bildern</v-list-item-title>
+          <v-list-item-title>Ohne Bilder</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>

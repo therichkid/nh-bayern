@@ -168,6 +168,7 @@ table.tablepress tr:last-child > td:last-child {
   body.no-img img,
   body.no-img iframe,
   .v-btn--fab,
+  .v-menu__content,
   .v-tooltip__content {
     display: none !important;
   }
