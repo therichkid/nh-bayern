@@ -20,7 +20,7 @@
       <v-card flat tile class="transparent" v-if="$vuetify.breakpoint.mdAndUp">
         <v-window v-model="window">
           <v-window-item v-for="i in pages" :key="i">
-            <v-container mx-0 px-0 mt-0 pt-0>
+            <v-container>
               <v-row>
                 <v-col cols="4" lg="3" v-for="event in eventsInView" :key="event.id" class="d-flex">
                   <EventCard :event="event" />

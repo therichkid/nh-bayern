@@ -70,7 +70,7 @@ export default {
 }
 .event-card {
   width: 100%;
-  min-width: 200px;
+  min-width: 225px;
   max-width: 275px;
 }
 .v-card__title {

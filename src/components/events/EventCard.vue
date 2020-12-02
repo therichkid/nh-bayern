@@ -27,7 +27,7 @@
               </v-chip-group>
             </v-col>
             <v-col cols="12">
-              <h3 class="headline">{{ event.title }}</h3>
+              <h3 :class="$vuetify.breakpoint.mdAndUp ? 'headline' : 'title'">{{ event.title }}</h3>
             </v-col>
           </v-row>
         </v-card-title>
