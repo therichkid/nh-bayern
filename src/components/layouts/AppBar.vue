@@ -187,11 +187,13 @@ export default {
   },
 
   mounted() {
-    if (!localStorage.getItem("darkMode")) {
-      localStorage.setItem("darkMode", false);
-    }
-    if (localStorage.getItem("darkMode") === "true") {
+    if (
+      window.matchMedia("(prefers-color-scheme: dark)").matches ||
+      localStorage.getItem("darkMode") === "true"
+    ) {
       this.$vuetify.theme.dark = true;
+    } else {
+      this.$vuetify.theme.dark = false;
     }
     this.checkTitleDimensions();
     setInterval(() => {

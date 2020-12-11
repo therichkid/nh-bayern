@@ -14,7 +14,7 @@
         >
           <v-row no-gutters>
             <!-- Image -->
-            <v-col cols="auto">
+            <v-col :cols="$vuetify.breakpoint.xsOnly ? 12 : 'auto'">
               <v-avatar class="ma-2" size="200" style="border-radius: 4px">
                 <v-img
                   :src="article.featuredImage.source"
