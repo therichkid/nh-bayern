@@ -188,7 +188,8 @@ export default {
 
   mounted() {
     if (
-      window.matchMedia("(prefers-color-scheme: dark)").matches ||
+      (window.matchMedia("(prefers-color-scheme: dark)").matches &&
+        localStorage.getItem("darkMode") !== "false") ||
       localStorage.getItem("darkMode") === "true"
     ) {
       this.$vuetify.theme.dark = true;
