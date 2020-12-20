@@ -107,7 +107,6 @@ export default {
     const params = {
       _embed: true,
       per_page: 100
-      // "filter[meta_query][relation]": "OR"
     };
     if (startDate) {
       Object.assign(params, {

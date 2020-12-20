@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" max-width="700" persistent>
+  <v-dialog v-model="dialog" max-width="750" persistent>
     <v-card>
       <v-card-title class="white--text" :class="alertType">
         <span class="headline">{{ alertType === "success" ? "Erfolg" : "Fehler" }}</span>
@@ -15,11 +15,11 @@
       </v-card-title>
       <v-card-text class="mt-2">{{ alertMessage }}</v-card-text>
       <v-card-actions>
-        <v-btn v-if="alertType === 'success' && page === 'form'" text to="/">
+        <v-btn v-if="alertType === 'success' && page === 'form'" to="/">
           <v-icon>mdi-chevron-left</v-icon>
           <span>Home</span>
         </v-btn>
-        <v-btn v-else text @click="closeDialog">
+        <v-btn v-else @click="closeDialog">
           <v-icon>mdi-chevron-left</v-icon>
           <span>Zurück</span>
         </v-btn>

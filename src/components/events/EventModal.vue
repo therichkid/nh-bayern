@@ -85,7 +85,7 @@
         <span>Zurück</span>
       </v-btn>
       <v-spacer></v-spacer>
-      <v-btn right :to="`${link}/anmeldung`" v-if="event.registration">
+      <v-btn :to="`${link}/anmeldung`" v-if="event.registration">
         <span>Zur Anmeldung</span>
         <v-icon>mdi-chevron-right</v-icon>
       </v-btn>

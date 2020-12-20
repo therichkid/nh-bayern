@@ -112,7 +112,7 @@
           <span>Zurück</span>
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn color="success" right :disabled="!valid" :loading="isSending" @click="sendForm"
+        <v-btn color="success" :disabled="!valid" :loading="isSending" @click="sendForm"
           >Senden</v-btn
         >
       </v-card-actions>

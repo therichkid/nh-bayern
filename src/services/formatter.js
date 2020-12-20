@@ -40,7 +40,6 @@ export default {
         slug: orig.slug,
         title: decodeHtml(orig.title.rendered),
         content: orig.content.rendered,
-        link: orig.link,
         startDate: orig.acf.event_datum,
         endDate:
           orig.acf.event_datum !== orig.acf.event_datum_ende ? orig.acf.event_datum_ende : null,

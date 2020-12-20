@@ -150,7 +150,7 @@
             <td>
               <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
-                  <v-btn icon right v-on="on" aria-label="Öffnen">
+                  <v-btn icon v-on="on" aria-label="Öffnen">
                     <v-icon>mdi-open-in-app</v-icon>
                   </v-btn>
                 </template>
