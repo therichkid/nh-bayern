@@ -131,14 +131,9 @@ export default {
             console.error(error);
           })) || [];
       }
-      this.groups = groups.sort((a, b) => {
-        if (a.name < b.name) {
-          return -1;
-        } else if (a.name > b.name) {
-          return 1;
-        }
-        return 0;
-      });
+      this.groups = groups.sort((a, b) =>
+        a.name.localeCompare(b.name, "de", { sensitivity: "base" })
+      );
     },
     async getPageBySlug(slug) {
       const pageFetched = this.$store.getters.getFetchedPageBySlug(slug);

@@ -60,13 +60,11 @@
         <v-row dense>
           <v-col cols="12">
             <v-autocomplete
-              v-model="selectedGroups"
+              v-model="selectedGroup"
               :items="groups"
               item-text="name"
               item-value="category.name"
-              multiple
-              clearable
-              label="Verbände"
+              label="Verband"
               hide-details
             ></v-autocomplete>
           </v-col>
@@ -194,7 +192,7 @@ export default {
         month: "Monat",
         list: "Terminübersicht"
       },
-      selectedGroups: [],
+      selectedGroup: "all",
       groups: [],
       weekdays: [1, 2, 3, 4, 5, 6, 0],
       events: [],
@@ -250,15 +248,8 @@ export default {
     filteredEvents() {
       const filteredEvents = [];
       for (const event of this.events) {
-        if (this.selectedGroups.length) {
-          let hasMatchedGroup = false;
-          for (const group of event.groups) {
-            if (this.selectedGroups.includes(group.name)) {
-              hasMatchedGroup = true;
-              break;
-            }
-          }
-          if (!hasMatchedGroup) {
+        if (this.selectedGroup !== "all") {
+          if (!event.groups.find(group => group.name === this.selectedGroup)) {
             continue;
           }
         }
@@ -394,14 +385,9 @@ export default {
         groups =
           (await this.$store.dispatch("fetchGroups").catch(error => console.error(error))) || [];
       }
-      this.groups = groups.sort((a, b) => {
-        if (a.name < b.name) {
-          return -1;
-        } else if (a.name > b.name) {
-          return 1;
-        }
-        return 0;
-      });
+      groups = groups.sort((a, b) => a.name.localeCompare(b.name, "de", { sensitivity: "base" }));
+      groups.unshift({ name: "Alle", category: { name: "all" } });
+      this.groups = groups;
     },
     getEventColor(event) {
       return event.color || "var(--v-primary-base)";

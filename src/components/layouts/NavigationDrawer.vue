@@ -51,11 +51,6 @@ export default {
           to: "/"
         },
         {
-          icon: "mdi-newspaper",
-          title: "Neuigkeiten",
-          to: "/news"
-        },
-        {
           icon: "mdi-calendar",
           title: "Veranstaltungen",
           to: "/events"
@@ -64,6 +59,11 @@ export default {
           icon: "mdi-account-multiple",
           title: "Netzwerk",
           to: "/netzwerk"
+        },
+        {
+          icon: "mdi-newspaper",
+          title: "Neuigkeiten",
+          to: "/news"
         },
         {
           icon: "mdi-information",
