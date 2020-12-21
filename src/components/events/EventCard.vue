@@ -39,17 +39,15 @@
           </v-chip>
           <v-row align="center" dense>
             <!-- Address -->
-            <v-col cols="12">
+            <v-col cols="12" v-if="event.address">
               <v-icon color="primary" class="pr-1">mdi-map-marker</v-icon>
-              <span class="mr-2">{{ event.address }}</span>
+              <span>{{ event.address }}</span>
             </v-col>
             <!-- Time -->
             <v-col cols="12">
               <v-icon color="primary" class="pr-1">mdi-clock</v-icon>
-              <span class="mr-2">
-                {{ event.startTime }}
-                <span v-if="event.endTime">bis {{ event.endTime }}</span>
-              </span>
+              <span>{{ event.startTime }}</span>
+              <span v-if="event.endTime"> bis {{ event.endTime }}</span>
             </v-col>
           </v-row>
         </v-card-text>

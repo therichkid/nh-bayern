@@ -61,11 +61,6 @@ export default {
           to: "/netzwerk"
         },
         {
-          icon: "mdi-newspaper",
-          title: "Neuigkeiten",
-          to: "/news"
-        },
-        {
           icon: "mdi-information",
           title: "Über uns",
           to: [
@@ -86,6 +81,11 @@ export default {
               to: "/taetigkeitsberichte"
             }
           ]
+        },
+        {
+          icon: "mdi-newspaper",
+          title: "Neuigkeiten",
+          to: "/news"
         },
         {
           icon: "mdi-clipboard-account",

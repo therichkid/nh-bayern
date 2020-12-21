@@ -32,7 +32,7 @@
         <v-card-title>Adresse</v-card-title>
         <v-card-text>
           <!-- Main address -->
-          <div class="align-center">
+          <div class="align-center" v-if="group.address">
             <v-icon color="primary" class="icon">mdi-map-marker</v-icon>
             <span class="body-2 text" v-html="group.address.split(', ').join('<br />')"></span>
           </div>

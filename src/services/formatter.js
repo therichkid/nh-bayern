@@ -32,9 +32,6 @@ export default {
   formatEvents: input => {
     const events = [];
     for (const orig of input) {
-      if (!orig.acf || !Object.keys(orig.acf.adresse).length) {
-        throw "Formatting of Events went wrong, please check if ACF-Plugin is enabled and all Events are valid!";
-      }
       const event = {
         id: orig.id,
         slug: orig.slug,
@@ -232,29 +229,30 @@ const checkDateFormat = (type, ...input) => {
 const addAddress = input => {
   let str = "";
   if (input.acf.adressname) {
-    str += `${input.acf.adressname}, `;
+    str += input.acf.adressname + (input.acf.adresse ? ", " : "");
   }
-  if (input.acf.adresse.address.includes("Deutschland")) {
-    str += input.acf.adresse.address.split(",").slice(0, -1).join(",");
-  } else {
-    str += input.acf.adresse.address;
+  if (input.acf.adresse) {
+    if (input.acf.adresse.address.includes("Deutschland")) {
+      str += input.acf.adresse.address.split(",").slice(0, -1).join(",");
+    } else {
+      str += input.acf.adresse.address;
+    }
   }
   return str;
 };
 
 // Add the 2nd address to a group
 const addAddress2 = input => {
-  if (!input.acf.adresse_2) {
-    return null;
-  }
   let str = "";
   if (input.acf.adressname_2) {
-    str += `${input.acf.adressname_2}, `;
+    str += input.acf.adressname_2 + (input.acf.adresse_2 ? ", " : "");
   }
-  if (input.acf.adresse_2.address.includes("Deutschland")) {
-    str += input.acf.adresse_2.address.split(",").slice(0, -1).join(",");
-  } else {
-    str += input.acf.adresse_2.address;
+  if (input.acf.adresse_2) {
+    if (input.acf.adresse_2.address.includes("Deutschland")) {
+      str += input.acf.adresse_2.address.split(",").slice(0, -1).join(",");
+    } else {
+      str += input.acf.adresse_2.address;
+    }
   }
   return str;
 };

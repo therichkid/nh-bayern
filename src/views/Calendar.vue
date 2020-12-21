@@ -385,9 +385,10 @@ export default {
         groups =
           (await this.$store.dispatch("fetchGroups").catch(error => console.error(error))) || [];
       }
-      groups = groups.sort((a, b) => a.name.localeCompare(b.name, "de", { sensitivity: "base" }));
-      groups.unshift({ name: "Alle", category: { name: "all" } });
-      this.groups = groups;
+      this.groups = [
+        { name: "Alle", category: { name: "all" } },
+        ...groups.sort((a, b) => a.name.localeCompare(b.name, "de", { sensitivity: "base" }))
+      ];
     },
     getEventColor(event) {
       return event.color || "var(--v-primary-base)";
