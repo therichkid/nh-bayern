@@ -1,25 +1,20 @@
 <template>
-  <div class="cookie-consent pa-2 pa-md-5" v-if="hasNotAcceptedCookies">
+  <div class="cookie-consent pa-2 pa-md-5" v-if="!hasAcceptedCookies">
     <v-card outlined class="cookie-consent-card">
       <v-card-text class="pb-0">
         <span>
-          Mit der Nutzung dieser Webseite erklären Sie sich damit einverstanden, dass wir Cookies
-          verwenden.
+          Diese Webseite verwendet technisch notwendige Cookies sowie Cookies zu Analysezwecken von
+          Google Analytics. Sie können Ihre Einwilligung jederzeit in der Datenschutzerklärung
+          widerrufen.
         </span>
-        <v-btn text to="/datenschutz">Weiterlesen</v-btn>
+        <router-link to="/datenschutz">Weiterlesen</router-link>.
       </v-card-text>
       <v-card-actions>
-        <v-checkbox
-          v-model="hasUnderstood"
-          label="Ich habe verstanden"
-          hide-details
-          color="success"
-          class="mt-0 pt-0"
-        ></v-checkbox>
         <v-spacer></v-spacer>
-        <v-btn :disabled="!hasUnderstood" @click="acceptCookies()" color="success"
-          >Akzeptieren
-        </v-btn>
+        <div class="cookie-consent-buttons">
+          <v-btn @click="acceptCookies('required')" text>Nur notwendige akzeptieren</v-btn>
+          <v-btn @click="acceptCookies('all')" color="success">Alle akzeptieren</v-btn>
+        </div>
       </v-card-actions>
     </v-card>
   </div>
@@ -29,24 +24,29 @@
 export default {
   data() {
     return {
-      hasNotAcceptedCookies: true,
-      hasUnderstood: false
+      hasAcceptedCookies: false
     };
   },
 
   methods: {
-    acceptCookies() {
-      this.hasNotAcceptedCookies = false;
-      localStorage.setItem("cookiesAccepted", true);
+    acceptCookies(type) {
+      if (type === "all") {
+        this.$ga.enable();
+        localStorage.setItem("cookiesAccepted", "all");
+      } else {
+        localStorage.setItem("cookiesAccepted", "required");
+      }
+      this.hasAcceptedCookies = true;
     }
   },
 
   mounted() {
-    if (!localStorage.getItem("cookiesAccepted")) {
-      localStorage.setItem("cookiesAccepted", false);
+    const decision = localStorage.getItem("cookiesAccepted");
+    if (decision === "all" || decision === "required") {
+      this.hasAcceptedCookies = true;
     }
-    if (localStorage.getItem("cookiesAccepted") === "true") {
-      this.hasNotAcceptedCookies = false;
+    if (decision === "all") {
+      this.$ga.enable();
     }
   }
 };
@@ -65,5 +65,10 @@ export default {
 .cookie-consent-card {
   max-width: 600px;
   pointer-events: auto;
+}
+.cookie-consent-buttons {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 </style>
