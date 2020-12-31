@@ -49,6 +49,7 @@
                   v-model="form.value"
                   locale="de-DE"
                   :first-day-of-week="1"
+                  color="primary"
                 ></v-date-picker>
               </div>
               <v-btn text v-if="form.value" @click="form.value = ''">
@@ -176,6 +177,14 @@ export default {
   },
 
   methods: {
+    initForm() {
+      if (this.type === "event") {
+        this.getEventBySlug(this.slug);
+      } else if (this.type === "page" && this.formIdProp && this.formDataProp) {
+        this.formId = this.formIdProp;
+        this.forms = this.formatFormData(this.formDataProp);
+      }
+    },
     async getEventBySlug(slug) {
       if (this.type !== "event") {
         return;
@@ -359,17 +368,16 @@ export default {
 
   watch: {
     $route() {
-      this.getEventBySlug(this.slug);
-      this.addProps();
+      this.initForm();
+    },
+    formIdProp() {
+      // This watch is needed because propId is still undefined on $route change
+      this.initForm();
     }
   },
 
-  created() {
-    this.getEventBySlug(this.slug);
-  },
-
   mounted() {
-    this.addProps();
+    this.initForm();
   }
 };
 </script>
