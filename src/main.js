@@ -9,10 +9,6 @@ import VueAnalytics from "vue-analytics";
 import shared from "./services/shared";
 Vue.prototype.shared = shared;
 
-// reCAPTCHA
-import { VueReCaptcha } from "vue-recaptcha-v3";
-Vue.use(VueReCaptcha, { siteKey: "6LfQl6UUAAAAACpOBLqwIOQso7e1hGWdDiH_CbwJ" });
-
 // Google Analytics
 Vue.use(VueAnalytics, {
   id: "UA-48579646-1",

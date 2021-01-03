@@ -13,51 +13,39 @@ export default {
     return { data: response.data, headers: response.headers };
   },
 
-  // Post requests with reCAPTCHA check
-  async postData(data, token, id) {
-    // Get the path when reCAPTCHA is successful
-    const path = await verify(token, id);
-    if (path) {
-      await cf7PostRequest(data, path).catch(error => {
+  async postData(data, id) {
+    const response = await axios.post("/includes/submit.php", { data, id }).catch(error => {
+      if (typeof error === "string") {
+        // Validation errors
         throw error;
-      });
-      return "Ihr Formular wurde erfolgreich versendet. Vielen Dank!";
+      } else {
+        console.error(error);
+        throw defaultErrorMessage;
+      }
+    });
+    const { success, message } = handleResponse(response);
+    if (success) {
+      return message;
     } else {
-      throw "Unbekannter Fehler.";
+      throw message;
     }
   }
 };
 
-// Verify if the user is human
-const verify = async (token, id) => {
-  const response = await axios
-    .post("/includes/verify.php", {
-      token,
-      id
-    })
-    .catch(error => {
-      console.error(error);
-      // Somehow catching the error message from the php file is not working...
-      throw "reCAPTCHA-Prüfung war nicht erfolgreich. Bitte versuchen Sie es noch einmal.";
-    });
-  return response.data;
-};
+const defaultErrorMessage =
+  "Leider ist etwas schiefgegangen. Bitte versuchen Sie es später noch einmal.";
 
-// CF7
-const cf7PostRequest = async (data, restParam) => {
-  const bodyFormData = new FormData();
-  for (const key in data) {
-    bodyFormData.set(key, data[key]);
-  }
-  const response = await wpInstance.post(restParam, bodyFormData).catch(error => {
-    throw error;
-  });
-  // console.log("Post CF7 Data Successful", response);
+const handleResponse = response => {
   if (response.data.status === "mail_sent") {
-    // Success
-    return null;
+    return {
+      success: true,
+      message: "Ihr Formular wurde erfolgreich versendet. Vielen Dank!"
+    };
   } else {
-    // Error handling CF7
-    throw response;
+    console.error(response);
+    return {
+      success: false,
+      message: response.data.message || defaultErrorMessage
+    };
   }
 };

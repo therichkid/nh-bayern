@@ -33,6 +33,7 @@
               :label="form.label"
               :rules="addFormRule(form)"
               v-model="form.value"
+              v-show="form.id !== '_hp'"
             ></v-text-field>
             <!-- Text area -->
             <v-textarea
@@ -96,17 +97,6 @@
             </v-radio-group>
           </div>
         </v-form>
-        <div class="caption mt-2">
-          Diese Website ist durch reCAPTCHA geschützt und es gelten die
-          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer"
-            >Datenschutzbestimmungen</a
-          >
-          und
-          <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer"
-            >Nutzungsbedingungen</a
-          >
-          von Google.
-        </div>
       </v-card-text>
       <v-card-actions>
         <v-btn @click="goBack()">
@@ -171,6 +161,7 @@ export default {
       ],
       urlRules: [v => /\S+\.\S{2,}/.test(v) || !v || "Die URL ist ungültig!"],
       isPosting: false,
+      initTime: 0,
       dialog: false,
       alertType: "",
       alertMessage: ""
@@ -289,6 +280,13 @@ export default {
           arr.push(obj);
         }
       }
+      // Add honeypot
+      arr.push({
+        label: "HP",
+        type: "text",
+        id: "_hp",
+        value: ""
+      });
       return arr;
     },
     addFormRule(form) {
@@ -316,23 +314,21 @@ export default {
           data[form.id] = form.value.trim();
         }
       }
-      try {
-        // Create token for reCAPTCHA
-        const token = await this.$recaptcha("login");
-        await api.postData(data, token, this.formId).then(response => {
+      data._timer = Date.now() - this.initTime;
+      await api
+        .postData(data, this.formId)
+        .then(response => {
           this.alertType = "success";
           this.alertMessage = response;
+        })
+        .catch(error => {
+          this.alertType = "error";
+          this.alertMessage = error;
+        })
+        .finally(() => {
+          this.isPosting = false;
+          this.dialog = true;
         });
-      } catch (error) {
-        this.alertType = "error";
-        this.alertMessage =
-          error?.data?.message ||
-          error ||
-          "reCAPTCHA-Prüfung war nicht erfolgreich. Bitte versuchen Sie es noch einmal.";
-      } finally {
-        this.isPosting = false;
-        this.dialog = true;
-      }
     },
     closeDialog() {
       this.dialog = false;
@@ -370,6 +366,7 @@ export default {
   },
 
   mounted() {
+    this.initTime = Date.now();
     this.initForm();
   }
 };
