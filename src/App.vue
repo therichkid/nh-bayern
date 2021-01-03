@@ -176,4 +176,28 @@ table.tablepress tr:last-child > td:last-child {
     padding: 0 !important;
   }
 }
+/* Style the youtube wrapper */
+.yt-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.yt-wrapper > img {
+  width: 480px;
+  height: auto;
+  max-width: 100%;
+}
+.yt-wrapper > svg {
+  width: 68px;
+  height: 48px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: grayscale(1);
+  opacity: 0.75;
+}
+.yt-wrapper:hover > svg {
+  filter: grayscale(0);
+  opacity: 1;
+}
 </style>

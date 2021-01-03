@@ -50,6 +50,7 @@
                   locale="de-DE"
                   :first-day-of-week="1"
                   color="primary"
+                  class="elevation-2"
                 ></v-date-picker>
               </div>
               <v-btn text v-if="form.value" @click="form.value = ''">
@@ -113,7 +114,7 @@
           <span>Zurück</span>
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn color="success" :disabled="!valid" :loading="isSending" @click="sendForm"
+        <v-btn color="success" :disabled="!valid" :loading="isPosting" @click="postForm"
           >Senden</v-btn
         >
       </v-card-actions>
@@ -169,7 +170,7 @@ export default {
           "Diese Telefonnummer ist ungültig!"
       ],
       urlRules: [v => /\S+\.\S{2,}/.test(v) || !v || "Die URL ist ungültig!"],
-      isSending: false,
+      isPosting: false,
       dialog: false,
       alertType: "",
       alertMessage: ""
@@ -304,11 +305,11 @@ export default {
       }
       return arr;
     },
-    async sendForm() {
-      this.isSending = true;
+    async postForm() {
+      this.isPosting = true;
       const data = {};
       for (const form of this.forms) {
-        if (form.value && form.value.length > 0) {
+        if ((form.value || form.value === 0) && form.value.length > 0) {
           if (form.type === "url" && !form.value.includes("http")) {
             form.value = `https://${form.value}`;
           }
@@ -329,20 +330,12 @@ export default {
           error ||
           "reCAPTCHA-Prüfung war nicht erfolgreich. Bitte versuchen Sie es noch einmal.";
       } finally {
-        this.isSending = false;
+        this.isPosting = false;
         this.dialog = true;
       }
     },
     closeDialog() {
       this.dialog = false;
-    },
-    addProps() {
-      if (this.formIdProp) {
-        this.formId = this.formIdProp;
-      }
-      if (this.formDataProp) {
-        this.forms = this.formatFormData(this.formDataProp);
-      }
     },
     goBack() {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");

@@ -12,7 +12,7 @@ export default {
         title: decodeHtml(orig.title.rendered),
         author: orig.acf.abweichender_autor || orig._embedded.author[0].name,
         excerpt: orig.excerpt.rendered,
-        content: orig.content.rendered,
+        content: parseContent(orig.content.rendered),
         dateOrig: orig.date.slice(0, 10),
         date: formatDate(null, orig.date),
         categories: addCategories(orig, false),
@@ -36,7 +36,7 @@ export default {
         id: orig.id,
         slug: orig.slug,
         title: decodeHtml(orig.title.rendered),
-        content: orig.content.rendered,
+        content: parseContent(orig.content.rendered),
         startDate: orig.acf.event_datum,
         endDate:
           orig.acf.event_datum !== orig.acf.event_datum_ende ? orig.acf.event_datum_ende : null,
@@ -93,7 +93,7 @@ export default {
       slug: orig.slug,
       title: decodeHtml(orig.title.rendered),
       author: orig.acf.abweichender_autor || orig._embedded.author[0].name,
-      content: orig.content.rendered,
+      content: parseContent(orig.content.rendered),
       dateOrig: orig.date.slice(0, 10),
       date: formatDate(null, orig.date),
       featuredImage: addFeaturedImage(orig)
@@ -129,7 +129,7 @@ export default {
         id: orig.id,
         slug: orig.slug,
         name: decodeHtml(orig.title.rendered),
-        content: orig.content ? orig.content.rendered : null,
+        content: orig.content ? parseContent(orig.content.rendered) : null,
         address: addAddress(orig),
         address2: addAddress2(orig),
         email: orig.acf.email,
@@ -381,4 +381,63 @@ const decodeHtml = str => {
   return str.replace(/&#(\d+);/g, (match, dec) => {
     return String.fromCharCode(dec);
   });
+};
+
+const parseContent = str => {
+  str = removeEmptyLines(str);
+  str = parseEmbeds(str);
+  return str;
+};
+
+const removeEmptyLines = str => {
+  if (!str) {
+    return "";
+  }
+  return str.replace(/<p>&nbsp;<\/p>/g, "");
+};
+
+const parseEmbeds = str => {
+  const iframeRegExp = /<iframe[^>]+>[\s\S]*?<\/iframe>/g;
+  const srcRegExp = /src=["'](.+?)["']/;
+  const origs = [];
+  const replacements = [];
+  let orig;
+  while ((orig = iframeRegExp.exec(str)) !== null) {
+    let replacement = "";
+    const src = orig[0].match(srcRegExp);
+    if (src) {
+      const url = src[1];
+      if (url.includes("youtube") || url.includes("youtu.be")) {
+        const id = getYtId(url);
+        if (id) {
+          replacement = createYtElement(id);
+        }
+      }
+      if (!replacement) {
+        replacement = createLinkElement(url);
+      }
+    }
+    origs.push(orig);
+    replacements.push(replacement);
+  }
+  origs.forEach((orig, i) => {
+    str = str.replace(orig, replacements[i]);
+  });
+  return str;
+};
+const getYtId = url => {
+  const regExp = /^.*(?:youtu.be\/|v\/|e\/|u\/\w+\/|embed\/|v=)([^#&?]*).*/;
+  const id = url.match(regExp);
+  return (id && id[1]) || null;
+};
+const createYtElement = id => {
+  return `<a href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener noreferrer" class="yt-wrapper">
+  <img src="https://img.youtube.com/vi/${id}/hqdefault.jpg" alt="YouTube Video" />
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 721"  xmlns:v="https://vecta.io/nano"><path fill="#fff" d="M407,493l276-143L407,206V493z"/><path opacity=".12" fill="#420000" d="M407,206l242,161.6l34-17.6L407,206z"/><linearGradient id="A" gradientUnits="userSpaceOnUse" x1="512.5" y1="1.3" x2="512.5" y2="719.8"><stop offset="0" stop-color="#e52d27"/><stop offset="1" stop-color="#bf171d"/></linearGradient><path fill="url(#A)" d="M1013 156.3s-10-70.4-40.6-101.4C933.6 14.2 890 14 870.1 11.6 727.1 1.3 512.7 1.3 512.7 1.3h-.4s-214.4 0-357.4 10.3C135 14 91.4 14.2 52.6 54.9 22 85.9 12 156.3 12 156.3S1.8 238.9 1.8 321.6v77.5C1.8 481.8 12 564.4 12 564.4s10 70.4 40.6 101.4c38.9 40.7 89.9 39.4 112.6 43.7 81.7 7.8 347.3 10.3 347.3 10.3s214.6-.3 357.6-10.7c20-2.4 63.5-2.6 102.3-43.3 30.6-31 40.6-101.4 40.6-101.4s10.2-82.7 10.2-165.3v-77.5c0-82.7-10.2-165.3-10.2-165.3zM407 493V206l276 144-276 143z"/></svg>
+</a>`;
+};
+const createLinkElement = url => {
+  return `<a href="${url}" target="_blank" rel="noopener noreferrer">
+  Hier geht es zum Video.
+</a>`;
 };
