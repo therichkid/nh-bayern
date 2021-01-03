@@ -85,7 +85,7 @@ export default {
   watch: {
     post(post) {
       if (!post && !this.failedRequests) {
-        this.$router.push("/404");
+        this.$router.replace("/404");
       }
     },
     $route() {
