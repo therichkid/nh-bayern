@@ -4,8 +4,7 @@
       <v-card-text class="pb-0">
         <span>
           Diese Webseite verwendet technisch notwendige Cookies sowie Cookies zu Analysezwecken von
-          Google Analytics. Sie können Ihre Einwilligung jederzeit in der Datenschutzerklärung
-          widerrufen.
+          Google Analytics. Sie können Ihre Einwilligung jederzeit in der Datenkontrolle widerrufen.
         </span>
         <router-link to="/datenschutz">Weiterlesen</router-link>.
       </v-card-text>

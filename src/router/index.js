@@ -7,6 +7,7 @@ import Post from "../views/Post";
 import Event from "../views/Event";
 import Network from "../views/Network";
 import Group from "../views/Group";
+import DataControl from "../views/DataControl";
 import Page from "../views/Page";
 import PageNotFound from "../views/PageNotFound";
 
@@ -213,6 +214,14 @@ const routes = [
     component: PageNotFound,
     meta: {
       title: "404"
+    }
+  },
+  {
+    path: "/datenkontrolle",
+    name: "datenkontrolle",
+    component: DataControl,
+    meta: {
+      title: "Datenkontrolle"
     }
   },
   {

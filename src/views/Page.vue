@@ -10,14 +10,6 @@
       </v-col>
 
       <!-- Body -->
-      <v-col cols="12" v-if="page.slug === 'datenschutz'">
-        <div>
-          Klicken Sie auf den folgenden Knopf, um alle Cookies auf dieser Seite zurückzusetzen. Im
-          Anschluss können Sie Ihre Wahl zu den Cookies erneut treffen.
-        </div>
-        <v-btn @click="resetCookies()" class="mt-2">Cookies zurücksetzen</v-btn>
-      </v-col>
-
       <v-col cols="12" v-html="page.content" :style="{ fontSize: fontSize + 'px' }"></v-col>
       <!-- Social media -->
       <v-col cols="12">
@@ -107,15 +99,6 @@ export default {
     },
     goBack() {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
-    },
-    resetCookies() {
-      document.cookie.split(";").forEach(cookie => {
-        document.cookie = cookie
-          .replace(/^ +/, "")
-          .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-      });
-      localStorage.clear();
-      window.location.href = "/";
     }
   },
 
