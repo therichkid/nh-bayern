@@ -45,19 +45,43 @@ const routes = [
   // News redirects
   {
     path: "/newsbeitrag/*",
-    redirect: route => "/news/" + route.path.split("/").pop().replace(".html", "")
+    redirect: route =>
+      "/news/" +
+      route.path
+        .split("/")
+        .filter(path => path)
+        .pop()
+        .replace(".html", "")
   },
   {
     path: "/pressebeitrag/*",
-    redirect: route => "/news/" + route.path.split("/").pop().replace(".html", "")
+    redirect: route =>
+      "/news/" +
+      route.path
+        .split("/")
+        .filter(path => path)
+        .pop()
+        .replace(".html", "")
   },
   {
     path: "/newsbeitrag.25/*",
-    redirect: route => "/news/" + route.path.split("/").pop().replace(".html", "")
+    redirect: route =>
+      "/news/" +
+      route.path
+        .split("/")
+        .filter(path => path)
+        .pop()
+        .replace(".html", "")
   },
   {
     path: "/newsbeitrag-33/*",
-    redirect: route => "/news/" + route.path.split("/").pop().replace(".html", "")
+    redirect: route =>
+      "/news/" +
+      route.path
+        .split("/")
+        .filter(path => path)
+        .pop()
+        .replace(".html", "")
   },
   {
     path: "/news/:slug",
