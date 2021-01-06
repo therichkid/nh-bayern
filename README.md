@@ -1,5 +1,10 @@
 # nh-bayern
 
+[![logo]][website]
+
+[logo]: https://user-images.githubusercontent.com/39305770/103774231-85e39600-502c-11eb-9082-9019f43ad05f.jpg
+[website]: https://www.nh-bayern.de
+
 ## Used libraries
 
 | Project         | Status                                           |
