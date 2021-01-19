@@ -38,7 +38,8 @@ const routes = [
     name: "news",
     component: News,
     meta: {
-      title: "Neuigkeiten"
+      title: "Neuigkeiten",
+      description: "Neuigkeiten, aktuelle Berichte und Veranstaltungen."
     },
     alias: "/news"
   },
@@ -88,7 +89,8 @@ const routes = [
     name: "post",
     component: Post,
     meta: {
-      title: "Neuigkeiten"
+      title: "Neuigkeiten",
+      description: "Hier geht's zum vollständigen Artikel \u201E{slug}\u201C."
     },
     props: true
   },
@@ -98,7 +100,9 @@ const routes = [
     name: "events",
     component: Calendar,
     meta: {
-      title: "Veranstaltungen"
+      title: "Veranstaltungen",
+      description:
+        "Hier geht's zum Kalender des NH Bayerns, der Auskunft über Veranstaltungen des Netzwerks gibt."
     }
   },
   {
@@ -106,7 +110,8 @@ const routes = [
     name: "event",
     component: Event,
     meta: {
-      title: "Veranstaltungen"
+      title: "Veranstaltungen",
+      description: "{slug} am {date}: Alle Infos zur Veranstaltung."
     },
     props: true
   },
@@ -115,7 +120,8 @@ const routes = [
     name: "Anmeldung",
     component: Form,
     meta: {
-      title: "Anmeldung"
+      title: "Anmeldung",
+      description: "Anmeldung zur Veranstaltung {slug} am {date}."
     },
     props: route => ({
       date: route.params.date,
@@ -129,7 +135,8 @@ const routes = [
     name: "network",
     component: Network,
     meta: {
-      title: "Netzwerk"
+      title: "Netzwerk",
+      description: "Hier finden Sie alle Mitglieder des Netzwerks Hörbehinderung Bayern."
     }
   },
   // Group redirects
@@ -228,7 +235,8 @@ const routes = [
     name: "netzwerk",
     component: Group,
     meta: {
-      title: "Netzwerk"
+      title: "Netzwerk",
+      description: "Hier finden Sie Infos zum Mitglied {groupName} des Netzwerks."
     },
     props: true
   },
@@ -245,13 +253,17 @@ const routes = [
     name: "datenkontrolle",
     component: DataControl,
     meta: {
-      title: "Datenkontrolle"
+      title: "Datenkontrolle",
+      description: "Zurücksetzen von Cookies."
     }
   },
   {
     path: "/:slug",
     name: "page",
     component: Page,
+    meta: {
+      description: "Infos zu: {slug}."
+    },
     props: true
   },
   { path: "*", redirect: "/404" }
@@ -286,6 +298,23 @@ router.beforeEach((to, from, next) => {
   }
   title += "NH Bayern";
   document.title = title;
+  let description = to.meta.description || "Netzwerk Hörbehinderung Bayern";
+  description = description.replace(/\{(.+?)\}/g, (_, param) => {
+    const key = param.trim();
+    if (to.params[key]) {
+      return to.params[key]
+        .split("-")
+        .map(word => {
+          word = word.replace(/ae/g, "\u00e4").replace(/oe/g, "\u00f6").replace(/ue/g, "\u00fc");
+          return word.charAt(0).toUpperCase() + word.slice(1);
+        })
+        .join(" ");
+    }
+    return key;
+  });
+  document.querySelector('meta[name="description"]').setAttribute("content", description);
+  document.querySelector('meta[property="og:description"]').setAttribute("content", description);
+  document.querySelector('meta[itemprop="description"]').setAttribute("content", description);
   next();
 });
 
