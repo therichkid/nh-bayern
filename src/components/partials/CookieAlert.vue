@@ -3,8 +3,9 @@
     <v-card outlined class="cookie-consent-card">
       <v-card-text class="pb-0">
         <span>
-          Diese Webseite verwendet technisch notwendige Cookies sowie Cookies zu Analysezwecken von
-          Google Analytics. Sie können Ihre Einwilligung jederzeit in der Datenkontrolle widerrufen.
+          Diese Webseite verwendet technisch notwendige Cookies, Cookies zu Analysezwecken von
+          Google Analytics sowie Cookies für eingebettete Inhalte von externen Websites (z.B. für
+          Umfragen). Sie können Ihre Einwilligung jederzeit in der Datenkontrolle widerrufen.
         </span>
         <router-link to="/datenschutz">Weiterlesen</router-link>.
       </v-card-text>
