@@ -4,15 +4,17 @@
       <v-card-text class="pb-0">
         <span>
           Diese Webseite verwendet technisch notwendige Cookies, Cookies zu Analysezwecken von
-          Google Analytics sowie Cookies für eingebettete Inhalte von externen Websites (z.B. für
-          Umfragen). Sie können Ihre Einwilligung jederzeit in der Datenkontrolle widerrufen.
+          Google Analytics sowie Cookies für eventuell eingebettete Inhalte von externen Websites.
+          Sie können Ihre Einwilligung jederzeit in der Datenkontrolle widerrufen.
         </span>
         <router-link to="/datenschutz">Weiterlesen</router-link>.
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
         <div class="cookie-consent-buttons">
-          <v-btn @click="acceptCookies('required')" text>Nur notwendige akzeptieren</v-btn>
+          <v-btn @click="acceptCookies('required')" text class="mr-1"
+            >Nur notwendige akzeptieren</v-btn
+          >
           <v-btn @click="acceptCookies('all')" color="success">Alle akzeptieren</v-btn>
         </div>
       </v-card-actions>
