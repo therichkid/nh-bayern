@@ -85,16 +85,9 @@ export default {
         {
           icon: "mdi-map-marker",
           text: `Netzwerk Hörbehinderung Bayern
-          <br>Arberweg 28
-          <br>85748 Garching`
-        },
-        {
-          icon: "mdi-phone",
-          text: "<a href='tel:+498932928926'>+49 (0) 89 329 28 926</a>"
-        },
-        {
-          icon: "mdi-fax",
-          text: "<a href='tel:+4932223768123'>+49 (0) 3 222 376 8123</a>"
+            <br>Landesarbeitsgemeinschaft Selbsthilfe
+            <br>Orleansplatz 3
+            <br>81667 München`
         },
         {
           icon: "mdi-email",
