@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" max-width="750" persistent>
+  <v-dialog :value="dialog" max-width="750" persistent>
     <v-card>
       <v-card-title class="white--text" :class="alertType">
         <span class="headline">{{ alertType === "success" ? "Erfolg" : "Fehler" }}</span>

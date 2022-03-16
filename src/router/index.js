@@ -145,8 +145,7 @@ const routes = [
     redirect: "/netzwerk/ev"
   },
   {
-    path:
-      "/kurzprofil/articles/regens-wagner-offene-hilfen-in-der-stadt-augsburg-und-im-regierungsbezirk-schwaben",
+    path: "/kurzprofil/articles/regens-wagner-offene-hilfen-in-der-stadt-augsburg-und-im-regierungsbezirk-schwaben",
     redirect: "/netzwerk/regens-wagner"
   },
   {
@@ -154,8 +153,7 @@ const routes = [
     redirect: "/netzwerk/sd-bayern"
   },
   {
-    path:
-      "/kurzprofil/articles/arbeitsgemeinschaft-katholische-hoergeschaedigtenseelsorge-in-bayern",
+    path: "/kurzprofil/articles/arbeitsgemeinschaft-katholische-hoergeschaedigtenseelsorge-in-bayern",
     redirect: "/netzwerk/hoergeschaedigtenseelsorge"
   },
   {
@@ -163,8 +161,7 @@ const routes = [
     redirect: "/netzwerk/der-paritaetische"
   },
   {
-    path:
-      "/kurzprofil/articles/evang-luth-gehoerlosenseelsorge-gebaerdensprachliche-gemeinden-in-bayern",
+    path: "/kurzprofil/articles/evang-luth-gehoerlosenseelsorge-gebaerdensprachliche-gemeinden-in-bayern",
     redirect: "/netzwerk/egg"
   },
   {
@@ -192,13 +189,11 @@ const routes = [
     redirect: "/netzwerk/bbh"
   },
   {
-    path:
-      "/kurzprofil/articles/landesarbeitsgemeinschaft-hoerbehinderter-studenten-und-absolventen-ev-lhsa-bayern",
+    path: "/kurzprofil/articles/landesarbeitsgemeinschaft-hoerbehinderter-studenten-und-absolventen-ev-lhsa-bayern",
     redirect: "/netzwerk/dhsa"
   },
   {
-    path:
-      "/kurzprofil/articles/fachdienst-integration-taubblinder-und-hoersehbehinderter-menschen-in-bayern-itm",
+    path: "/kurzprofil/articles/fachdienst-integration-taubblinder-und-hoersehbehinderter-menschen-in-bayern-itm",
     redirect: "/netzwerk/itm"
   },
   {
@@ -222,8 +217,7 @@ const routes = [
     redirect: "/netzwerk/dtl"
   },
   {
-    path:
-      "/kurzprofil/articles/berufsfachverband-der-bayerischen-gebaerdensprachdolmetscherinnen-bayern-ev-bgsd",
+    path: "/kurzprofil/articles/berufsfachverband-der-bayerischen-gebaerdensprachdolmetscherinnen-bayern-ev-bgsd",
     redirect: "/netzwerk/bgsd"
   },
   {
