@@ -4,8 +4,23 @@
     <v-card-title class="primary white--text">
       <span class="headline pr-2">{{ event.dayFormatted }}.</span>
       <span class="caption pt-2 text-truncate" style="flex: 10 0">{{ event.monthFormatted }}</span>
+      <v-spacer></v-spacer>
+      <template v-if="event.registration">
+        <v-btn text dark :to="`${link}/anmeldung`" v-if="$vuetify.breakpoint.mdAndUp">
+          <v-icon class="mr-2">mdi-account-plus</v-icon>
+          <span>Anmelden</span>
+        </v-btn>
+        <v-btn
+          icon
+          dark
+          :to="`${link}/anmeldung`"
+          v-if="$vuetify.breakpoint.smAndDown"
+          aria-label="Zur Anmeldung"
+        >
+          <v-icon class="mr-2">mdi-account-plus</v-icon>
+        </v-btn>
+      </template>
       <template v-if="type === 'popup'">
-        <v-spacer></v-spacer>
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
             <v-btn icon dark v-on="on" :to="link" aria-label="Maximieren">
