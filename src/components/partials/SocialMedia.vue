@@ -45,7 +45,7 @@
     </v-snackbar>
 
     <!-- Print -->
-    <v-menu top left offset-y v-if="type !== 'popup' && $vuetify.breakpoint.mdAndUp">
+    <v-menu top left offset-y v-if="$vuetify.breakpoint.mdAndUp">
       <template v-slot:activator="{ on: menu }">
         <v-tooltip top>
           <template v-slot:activator="{ on: tooltip }">
@@ -145,15 +145,22 @@ export default {
       document.body.removeChild(el);
       this.snackbar = true;
     },
-    printPage(withImg) {
+    async printPage(withImg) {
       if (!withImg) {
         document.body.classList.add("no-img");
       }
-      // Wait until the menu close animation finished
-      setTimeout(() => {
+      if (this.type === "popup") {
+        await this.$router.push(this.link);
         window.print();
+        this.$router.go(-1);
         document.body.classList.remove("no-img");
-      }, 100);
+      } else {
+        // Wait until the menu close animation finished
+        setTimeout(() => {
+          window.print();
+          document.body.classList.remove("no-img");
+        }, 100);
+      }
     }
   }
 };
