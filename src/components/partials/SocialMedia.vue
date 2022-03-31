@@ -151,15 +151,13 @@ export default {
       }
       if (this.type === "popup") {
         await this.$router.push(this.link);
-        window.print();
+      }
+      // Wait until the animations finish
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      window.print();
+      document.body.classList.remove("no-img");
+      if (this.type === "popup") {
         this.$router.go(-1);
-        document.body.classList.remove("no-img");
-      } else {
-        // Wait until the menu close animation finished
-        setTimeout(() => {
-          window.print();
-          document.body.classList.remove("no-img");
-        }, 100);
       }
     }
   }
