@@ -270,11 +270,8 @@ const addFeaturedImage = input => {
     const featuredImage = input._embedded["wp:featuredmedia"][0];
     obj.title = featuredImage.title.rendered;
     // Pick medium large size if it exists
-    if (featuredImage.media_details.sizes && featuredImage.media_details.sizes.medium_large) {
-      obj.source = featuredImage.media_details.sizes.medium_large.source_url;
-    } else {
-      obj.source = featuredImage.source_url;
-    }
+    obj.source =
+      featuredImage.media_details.sizes?.medium_large?.source_url || featuredImage.source_url;
   }
   return obj;
 };
