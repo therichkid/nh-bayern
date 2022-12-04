@@ -33,7 +33,9 @@ export default {
   methods: {
     acceptCookies(type) {
       if (type === "all") {
-        this.$ga.enable();
+        if (process.env.NODE_ENV === "production") {
+          this.$gtag.optIn();
+        }
         localStorage.setItem("cookiesAccepted", "all");
       } else {
         localStorage.setItem("cookiesAccepted", "required");
@@ -47,8 +49,8 @@ export default {
     if (decision === "all" || decision === "required") {
       this.hasAcceptedCookies = true;
     }
-    if (decision === "all") {
-      this.$ga.enable();
+    if (decision === "all" && process.env.NODE_ENV === "production") {
+      this.$gtag.optIn();
     }
   }
 };

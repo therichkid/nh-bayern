@@ -1,23 +1,23 @@
 import "babel-polyfill";
 import Vue from "vue";
 import App from "./App.vue";
+import VueGtag from "vue-gtag";
 import vuetify from "./plugins/vuetify";
 import router from "./router/index";
 import store from "./store/index";
-import VueAnalytics from "vue-analytics";
-
 import shared from "./services/shared";
+
 Vue.prototype.shared = shared;
 
 // Google Analytics
-Vue.use(VueAnalytics, {
-  id: "UA-48579646-1",
-  router,
-  debug: {
-    sendHitTask: process.env.NODE_ENV === "production"
+Vue.use(
+  VueGtag,
+  {
+    id: "UA-48579646-1",
+    disabled: true
   },
-  disabled: true
-});
+  router
+);
 
 Vue.config.productionTip = false;
 
