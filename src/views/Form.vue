@@ -311,7 +311,15 @@ export default {
           if (form.type === "url" && !form.value.includes("http")) {
             form.value = `https://${form.value}`;
           }
-          data[form.id] = form.value.trim();
+          if (Array.isArray(form.value)) {
+            data[form.id] = form.value.map(value =>
+              typeof value === "string" ? value.trim() : value
+            );
+          } else if (typeof form.value === "string") {
+            data[form.id] = form.value.trim();
+          } else {
+            data[form.id] = form.value;
+          }
         }
       }
       data._timer = Date.now() - this.initTime;
