@@ -121,7 +121,7 @@ export default {
       Object.assign(params, {
         "filter[meta_query][1][key]": "event_datum",
         "filter[meta_query][1][value]": endDate,
-        "filter[meta_query][1][compare]": "<"
+        "filter[meta_query][1][compare]": "<="
       });
     }
     if (groupName) {
