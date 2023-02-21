@@ -58,8 +58,10 @@ export default {
         start: event.startDate + " " + event.startTime
       });
       // Add the event end date
-      if (event.endDate && !event.endTime) {
-        event.end = event.endDate;
+      if (!event.endDate && !event.endTime) {
+        event.end = event.startDate + " " + addMinutesToTime(event.startTime, 120);
+      } else if (event.endDate && !event.endTime) {
+        event.end = event.endDate + " " + addMinutesToTime(event.startTime, 120);
       } else if (event.endDate && event.endTime) {
         event.end = event.endDate + " " + event.endTime;
       } else if (!event.endDate && event.endTime) {
@@ -223,6 +225,19 @@ const checkDateFormat = (type, ...input) => {
   } else {
     return true;
   }
+};
+
+const addMinutesToTime = (time, minutesToAdd) => {
+  const [hourStr, minutesStr] = time.split(":");
+  const hour = parseInt(hourStr, 10);
+  const minutes = parseInt(minutesStr, 10);
+  const timeInMinutes = hour * 60 + minutes;
+  const newTimeInMinutes = timeInMinutes + minutesToAdd;
+  const newHour = Math.min(Math.floor(newTimeInMinutes / 60), 23);
+  const newMinutes = Math.min(newTimeInMinutes - newHour * 60, 59);
+  const newHourStr = (newHour < 10 ? "0" : "") + newHour;
+  const newMinutesStr = (newMinutes < 10 ? "0" : "") + newMinutes;
+  return `${newHourStr}:${newMinutesStr}`;
 };
 
 // Add the address to an event or a group
