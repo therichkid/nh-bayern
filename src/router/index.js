@@ -225,14 +225,15 @@ const routes = [
     redirect: "/netzwerk/bbw"
   },
   {
-    path: "/netzwerk/:groupName",
+    path: "/netzwerk/:groupName/page/:page?",
     name: "netzwerk",
     component: Group,
     meta: {
       title: "Netzwerk",
       description: "Hier finden Sie Infos zum Mitglied {groupName} des Netzwerks."
     },
-    props: true
+    props: true,
+    alias: "/netzwerk/:groupName"
   },
   {
     path: "/404",

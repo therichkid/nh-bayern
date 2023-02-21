@@ -134,6 +134,13 @@
       ></v-col>
     </v-row>
 
+    <v-container>
+      <h1 class="display-1 mb-2" v-if="postPages">Neuigkeiten</h1>
+      <Posts :page="page" :categoryName="groupName" @postPagesInit="postPages = $event" />
+    </v-container>
+    <div class="text-center" v-if="postPages">
+      <v-pagination v-model="page" :length="postPages" @input="changePage()"></v-pagination>
+    </div>
     <Events :groupName="groupName" />
 
     <v-row>
@@ -149,6 +156,7 @@
 
 <script>
 import LoadingSkeleton from "@/components/partials/LoadingSkeleton";
+import Posts from "@/components/posts/Posts";
 const Events = () => import(/* webpackChunkName: "events" */ "@/components/events/Events");
 const LoadingError = () =>
   import(/* webpackChunkName: "dialog" */ "@/components/partials/LoadingError");
@@ -157,6 +165,7 @@ export default {
   components: {
     LoadingSkeleton,
     LoadingError,
+    Posts,
     Events
   },
 
@@ -168,7 +177,9 @@ export default {
     return {
       group: {},
       hasOptionalInfo: false,
-      hasOptionalSecondaryInfo: false
+      hasOptionalSecondaryInfo: false,
+      page: parseInt(this.$route.params.page, 10) || 1,
+      postPages: 0
     };
   },
 
@@ -191,6 +202,9 @@ export default {
   },
 
   methods: {
+    changePage() {
+      this.$router.push(`/netzwerk/${this.groupName}/page/${this.page}`);
+    },
     async getGroup(groupName) {
       let groups = [];
       const groupsFetched = this.$store.getters.getFetchedGroups();
