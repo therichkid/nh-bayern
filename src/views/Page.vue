@@ -3,7 +3,7 @@
     <LoadingSkeleton v-if="isLoading" />
     <LoadingError v-if="loadingError" :height="500" @retryAgain="getPageBySlug(slug)" />
 
-    <v-row v-if="!isLoading && !loadingError && page" align="center">
+    <v-row v-if="!isLoading && !loadingError">
       <!-- Header -->
       <v-col cols="12">
         <h1 class="display-1">{{ page.title }}</h1>
@@ -11,6 +11,9 @@
 
       <!-- Body -->
       <v-col cols="12" v-html="page.content" :style="{ fontSize: fontSize + 'px' }"></v-col>
+    </v-row>
+
+    <v-row>
       <!-- Social media -->
       <v-col cols="12">
         <SocialMedia :link="'/' + slug" :title="page.title" />

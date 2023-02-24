@@ -145,7 +145,8 @@ export default {
         fax2: orig.acf.fax_2,
         homepage2: orig.acf.homepage_2,
         categories: addCategories(orig, true),
-        featuredImage: addFeaturedImage(orig)
+        featuredImage: addFeaturedImage(orig),
+        isWorkingGroup: orig.acf.arbeitsgruppe
       };
       const { color } = addCategoryProps(group.categories, false);
       group.color = color;

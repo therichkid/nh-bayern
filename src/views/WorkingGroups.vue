@@ -1,15 +1,12 @@
 <template>
   <v-container>
-    <v-row align="center">
-      <v-col cols="auto" class="mr-auto">
-        <h1 class="display-1 mb-2">Netzwerk</h1>
-      </v-col>
-      <v-col cols="auto">
-        <CategoryInfo />
+    <v-row>
+      <v-col cols="12">
+        <h1 class="display-1 mb-2">Arbeitskreise</h1>
       </v-col>
     </v-row>
 
-    <!-- Network -->
+    <!-- Working groups -->
     <LoadingSkeleton type="network" v-if="isLoading" />
     <LoadingError v-if="loadingError" :height="500" @retryAgain="getGroups()" />
 
@@ -19,18 +16,10 @@
       </v-col>
     </v-row>
 
-    <!-- WordPress page -->
-    <LoadingSkeleton type="page" v-if="isLoadingPage" />
-    <LoadingError v-if="loadingErrorPage" :height="500" @retryAgain="getPageBySlug('netzwerk')" />
-    <v-row v-if="!isLoadingPage && !loadingErrorPage && Object.keys(page).length">
-      <!-- Body -->
-      <v-col cols="12" v-html="page.content" :style="{ fontSize: fontSize + 'px' }"></v-col>
-    </v-row>
-
     <v-row>
       <!-- Social media -->
       <v-col cols="12">
-        <SocialMedia link="/netzwerk" title="Netzwerk" />
+        <SocialMedia link="/arbeitskreise" title="Arbeitskreise" />
       </v-col>
 
       <!-- Actions -->
@@ -46,7 +35,6 @@
 
 <script>
 import LoadingSkeleton from "@/components/partials/LoadingSkeleton";
-import CategoryInfo from "@/components/partials/CategoryInfo";
 import GroupCard from "@/components/partials/GroupCard";
 import SocialMedia from "@/components/partials/SocialMedia";
 const LoadingError = () =>
@@ -56,15 +44,13 @@ export default {
   components: {
     LoadingSkeleton,
     LoadingError,
-    CategoryInfo,
     GroupCard,
     SocialMedia
   },
 
   data() {
     return {
-      groups: [],
-      page: {}
+      groups: []
     };
   },
 
@@ -74,12 +60,6 @@ export default {
     },
     loadingError() {
       return this.$store.state.groupsLoadingError;
-    },
-    isLoadingPage() {
-      return this.$store.state.pageLoading;
-    },
-    loadingErrorPage() {
-      return this.$store.state.pageLoadingError;
     },
     fontSize() {
       return this.$store.state.fontSize;
@@ -101,20 +81,8 @@ export default {
           })) || [];
       }
       this.groups = groups
-        .filter(({ isWorkingGroup }) => !isWorkingGroup)
+        .filter(({ isWorkingGroup }) => !!isWorkingGroup)
         .sort((a, b) => a.name.localeCompare(b.name, "de", { sensitivity: "base" }));
-    },
-    async getPageBySlug(slug) {
-      const pageFetched = this.$store.getters.getFetchedPageBySlug(slug);
-      if (pageFetched[0]) {
-        // Already fetched
-        this.page = pageFetched[1];
-      } else {
-        // Not fetched yet
-        this.page = await this.$store.dispatch("fetchPageBySlug", slug).catch(error => {
-          console.error(error);
-        });
-      }
     },
     goBack() {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
@@ -123,7 +91,6 @@ export default {
 
   created() {
     this.getGroups();
-    this.getPageBySlug("netzwerk");
   }
 };
 </script>

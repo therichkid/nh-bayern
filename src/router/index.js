@@ -6,6 +6,7 @@ import News from "../views/News";
 import Post from "../views/Post";
 import Event from "../views/Event";
 import Network from "../views/Network";
+import WorkingGroups from "../views/WorkingGroups";
 import Group from "../views/Group";
 import DataControl from "../views/DataControl";
 import Page from "../views/Page";
@@ -137,6 +138,16 @@ const routes = [
     meta: {
       title: "Netzwerk",
       description: "Hier finden Sie alle Mitglieder des Netzwerks Hörbehinderung Bayern."
+    }
+  },
+  {
+    path: "/arbeitskreise",
+    name: "workingGroups",
+    component: WorkingGroups,
+    meta: {
+      title: "Arbeitskreise",
+      description:
+        "Arbeitskreise sind Projektteams, die sich aus Mitgliedern der unterschiedlichen Organisationen des Netzwerks Hörbehinderung Bayern zusammensetzen."
     }
   },
   // Group redirects

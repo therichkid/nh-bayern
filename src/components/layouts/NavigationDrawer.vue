@@ -61,6 +61,11 @@ export default {
           to: "/netzwerk"
         },
         {
+          icon: "mdi-account-group",
+          title: "Arbeitskreise",
+          to: "/arbeitskreise"
+        },
+        {
           icon: "mdi-information",
           title: "Über uns",
           to: [
