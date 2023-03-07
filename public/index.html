@@ -21,14 +21,10 @@
     <link rel="icon" href="<%= BASE_URL %>img/favicon.png" />
     <title>NH Bayern</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
-    />
+    <link rel="preload" as="style" href="<%= BASE_URL %>fonts/fonts.css" />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+      href="<%= BASE_URL %>fonts/fonts.css"
       media="print"
       onload="this.media='all'"
     />
@@ -43,16 +39,6 @@
       media="print"
       onload="this.media='all'"
     />
-    <script>
-      if (/MSIE|Trident/.test(window.navigator.userAgent)) {
-        document.write(
-          '<script src="https://unpkg.com/css-vars-ponyfill@2/dist/css-vars-ponyfill.min.js"><\/script>'
-        );
-        window.addEventListener("load", function () {
-          cssVars({});
-        });
-      }
-    </script>
   </head>
   <body>
     <noscript>
