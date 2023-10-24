@@ -86,6 +86,10 @@ export default {
   height: auto;
   max-width: 100%;
 }
+.wp-caption-text {
+  font-size: smaller;
+  font-style: italic;
+}
 .alignleft {
   float: left;
   margin: 0 10px 0 0;
