@@ -57,7 +57,7 @@ export default {
   min-height: 60vh;
 }
 .post-container {
-  max-width: 750px;
+  max-width: 800px;
   line-height: 1.8;
   word-wrap: break-word;
   hyphens: auto;
