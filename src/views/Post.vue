@@ -4,6 +4,7 @@
     <LoadingError v-if="loadingError" :height="500" @retryAgain="getPostBySlug(slug)" />
 
     <v-row v-if="!isLoading && !loadingError && Object.keys(post).length" align="center">
+      <!-- Header -->
       <v-chip-group column class="px-3">
         <v-chip
           :color="post.color || 'primary'"
@@ -15,7 +16,6 @@
           {{ category.name }}
         </v-chip>
       </v-chip-group>
-      <!-- Header -->
       <v-col cols="12">
         <h1 class="display-1">{{ post.title }}</h1>
       </v-col>
