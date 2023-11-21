@@ -139,7 +139,12 @@
       <Posts :page="page" :categoryName="groupName" @postPagesInit="postPages = $event" />
     </v-container>
     <div class="text-center" v-if="postPages">
-      <v-pagination v-model="page" :length="postPages" @input="changePage()"></v-pagination>
+      <v-pagination
+        v-model="page"
+        :length="postPages"
+        @input="changePage()"
+        class="mt-2"
+      ></v-pagination>
     </div>
     <Events :groupName="groupName" />
 

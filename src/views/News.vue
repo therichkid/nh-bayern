@@ -9,7 +9,7 @@
       </v-col>
     </v-row>
 
-    <v-btn-toggle v-model="selection" mandatory style="overflow-x: auto">
+    <v-btn-toggle v-model="selection" mandatory style="overflow-x: auto" class="mb-2">
       <v-btn value="all">Alle</v-btn>
       <v-btn value="presse">Presse</v-btn>
       <v-btn value="woche-der-kommunikation">Woche der Kommunikation</v-btn>
@@ -18,7 +18,12 @@
 
     <Posts :page="page" @postPagesInit="postPages = $event"></Posts>
     <div class="text-center">
-      <v-pagination v-model="page" :length="postPages" @input="changePage()"></v-pagination>
+      <v-pagination
+        v-model="page"
+        :length="postPages"
+        @input="changePage()"
+        class="mt-2"
+      ></v-pagination>
     </div>
   </v-container>
 </template>
