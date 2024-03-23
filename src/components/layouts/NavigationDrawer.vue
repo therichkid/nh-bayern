@@ -80,10 +80,6 @@ export default {
             {
               title: "Stellungnahmen",
               to: "/stellungnahmen"
-            },
-            {
-              title: "Tätigkeitsberichte",
-              to: "/taetigkeitsberichte"
             }
           ]
         },
