@@ -154,7 +154,10 @@ export default {
       }
       // Wait until the animations finish
       await new Promise(resolve => setTimeout(resolve, 1000));
+      const isDarkMode = this.$vuetify.theme.dark;
+      this.$vuetify.theme.dark = false;
       window.print();
+      this.$vuetify.theme.dark = isDarkMode;
       document.body.classList.remove("no-img");
       if (this.type === "popup") {
         this.$router.go(-1);

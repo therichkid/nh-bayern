@@ -18,11 +18,11 @@
 </template>
 
 <script>
-import NavigationDrawer from "@/components/layouts/NavigationDrawer";
 import AppBar from "@/components/layouts/AppBar";
 import Footer from "@/components/layouts/Footer";
-import FAB from "@/components/partials/FAB";
+import NavigationDrawer from "@/components/layouts/NavigationDrawer";
 import CookieAlert from "@/components/partials/CookieAlert";
+import FAB from "@/components/partials/FAB";
 
 export default {
   components: { NavigationDrawer, AppBar, Footer, FAB, CookieAlert },
@@ -168,10 +168,15 @@ table.tablepress tr:last-child > td:last-child {
   footer,
   body.no-img img,
   body.no-img iframe,
+  body.no-img .v-image,
   .v-btn--fab,
   .v-menu__content,
   .v-tooltip__content {
     display: none !important;
+  }
+  body:not(.no-img) .v-image {
+    visibility: visible;
+    print-color-adjust: exact;
   }
   main {
     padding: 0 !important;
