@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar clipped-left app dark color="primary" v-bind="responsiveProps">
+  <v-app-bar clipped-left app dark color="primary flex" v-bind="responsiveProps">
     <v-app-bar-nav-icon
       @click.stop="onMenuToggleClick()"
       class="hidden-lg-and-up"
@@ -7,30 +7,28 @@
     ></v-app-bar-nav-icon>
 
     <router-link to="/">
-      <div v-if="showTitle && showTallTitle">
-        <v-img
-          class="ml-2 mt-1 tall-logo"
-          src="@/assets/logo_big.svg"
-          height="112"
-          width="160"
-          contain
-          alt="NH Bayern-Logo"
-        ></v-img>
-        <span class="title white--text tall-title">Netzwerk<br />Hörbehinderung<br />Bayern</span>
-      </div>
+      <v-img
+        v-if="appBarIsExpanded"
+        class="ml-2 mt-1 tall-logo"
+        src="@/assets/logo_text.png"
+        height="112"
+        width="230"
+        contain
+        alt="NH Bayern-Logo"
+      ></v-img>
       <v-img
         v-else
-        class="mx-2 my-1"
-        src="@/assets/logo_white.svg"
+        class="ml-2 mt-1"
+        src="@/assets/logo.png"
         height="40"
-        width="22"
+        width="37"
         contain
         alt="NH Bayern-Logo"
       ></v-img>
     </router-link>
 
-    <v-toolbar-title v-if="showTitle && !showTallTitle" class="ml-2 headline">
-      <span v-if="showLongTitle">Netzwerk Hörbehinderung Bayern</span>
+    <v-toolbar-title v-if="!appBarIsExpanded" class="ml-2 headline">
+      <span v-if="shouldShowLongTitle">Netzwerk Hörbehinderung Bayern</span>
       <span v-else>NH Bayern</span>
     </v-toolbar-title>
 
@@ -107,9 +105,8 @@ export default {
           action: null
         }
       ],
-      showTitle: false,
-      showLongTitle: false,
-      showTallTitle: false
+      appBarIsExpanded: true,
+      shouldShowLongTitle: true
     };
   },
 
@@ -162,27 +159,8 @@ export default {
       if (!this.$refs.spacer) {
         return;
       }
-      let showTitle = false;
-      let showLongTitle = false;
-      let showTallTitle = false;
-      const preWidthThreshold = this.showTitle ? 0 : 120;
-      if (this.$refs.spacer.clientWidth > preWidthThreshold) {
-        showTitle = true;
-        if (
-          this.$refs.spacer.clientHeight > 100 &&
-          (this.$refs.spacer.clientWidth > preWidthThreshold + 90 || this.showTallTitle)
-        ) {
-          showTallTitle = true;
-        } else {
-          const titleWidthThreshold = this.showLongTitle ? 50 : 400;
-          if (this.$refs.spacer.clientWidth > titleWidthThreshold) {
-            showLongTitle = true;
-          }
-        }
-      }
-      this.showTitle = showTitle;
-      this.showLongTitle = showLongTitle;
-      this.showTallTitle = showTallTitle;
+      this.appBarIsExpanded = this.$refs.spacer.clientHeight > 100;
+      this.shouldShowLongTitle = window.innerWidth > 750;
     }
   },
 
@@ -197,9 +175,13 @@ export default {
       this.$vuetify.theme.dark = false;
     }
     this.checkTitleDimensions();
-    setInterval(() => {
-      this.checkTitleDimensions();
-    }, 250);
+    setInterval(this.checkTitleDimensions, 250);
+    window.addEventListener("scroll", this.checkTitleDimensions);
+  },
+
+  unmounted() {
+    clearInterval(this.checkTitleDimensions);
+    window.removeEventListener("scroll", this.checkTitleDimensions);
   }
 };
 </script>
