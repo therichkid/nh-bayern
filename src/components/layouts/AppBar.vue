@@ -160,7 +160,9 @@ export default {
         return;
       }
       this.appBarIsExpanded = this.$refs.spacer.clientHeight > 100;
-      this.shouldShowLongTitle = window.innerWidth > 750;
+
+      const titleWidthThreshold = this.shouldShowLongTitle ? 50 : 300;
+      this.shouldShowLongTitle = this.$refs.spacer.clientWidth > titleWidthThreshold;
     }
   },
 
