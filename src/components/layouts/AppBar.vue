@@ -10,7 +10,7 @@
       <v-img
         v-if="appBarIsExpanded"
         class="ml-2 mt-1 tall-logo"
-        src="@/assets/logo_text.png"
+        src="@/assets/logo_text.svg"
         height="112"
         width="230"
         contain
@@ -19,7 +19,7 @@
       <v-img
         v-else
         class="ml-2 mt-1"
-        src="@/assets/logo.png"
+        src="@/assets/logo.svg"
         height="40"
         width="37"
         contain
