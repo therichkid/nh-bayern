@@ -96,11 +96,6 @@ export default {
           color: "#4267b2"
         },
         {
-          name: "twitter",
-          label: "Twitter",
-          color: "#1da1f2"
-        },
-        {
           name: "whatsapp",
           label: "WhatsApp",
           color: "#4ac959"
@@ -126,8 +121,6 @@ export default {
           return `mailto:?subject=${title}&body=${url}`;
         case "facebook":
           return `https://www.facebook.com/sharer/sharer.php?u=${url}`;
-        case "twitter":
-          return `https://twitter.com/intent/tweet?url=${url}&text=${title}`;
         case "whatsapp":
           return `https://wa.me/?text=${url}`;
       }
