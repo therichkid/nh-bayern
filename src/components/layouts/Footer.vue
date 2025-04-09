@@ -86,8 +86,8 @@ export default {
           icon: "mdi-map-marker",
           text: `Netzwerk Hörbehinderung Bayern
             <br>Landesarbeitsgemeinschaft Selbsthilfe
-            <br>Orleansplatz 3
-            <br>81667 München`
+            <br>Hansastraße 40
+            <br>80686 München`
         },
         {
           icon: "mdi-email",
